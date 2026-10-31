@@ -1,0 +1,2052 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran Interaktif Kimia - Redoks & Elektrokimia | SMAN 29 Maluku Tengah</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#0f172a',
+                            900: '#090d16',
+                            950: '#030712',
+                        },
+                        cyan: {
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                            600: '#0891b2',
+                        },
+                        purple: {
+                            500: '#a855f7',
+                            600: '#9333ea',
+                            700: '#7e22ce',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #090d16;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #06b6d4;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0891b2;
+        }
+
+        /* Glowing Effects */
+        .glow-cyan {
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.35);
+        }
+        .glow-purple {
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.35);
+        }
+        .text-glow {
+            text-shadow: 0 0 12px rgba(34, 211, 238, 0.6);
+        }
+        
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(3deg); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+        .animate-pulse-slow {
+            animation: pulse-glow 3s infinite ease-in-out;
+        }
+
+        /* Print styles */
+        @media print {
+            body { background: white !important; color: black !important; }
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            .glass-panel, .glass-card { background: none !important; border: 1px solid #ccc !important; color: black !important; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white">
+
+    <!-- HERO SPLASH / PROFIL MODAL -->
+    <div id="splash-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy-950/90 backdrop-blur-md">
+        <canvas id="hero-bg-canvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-40"></canvas>
+        
+        <div class="relative max-w-2xl w-full glass-panel rounded-3xl p-8 border border-cyan-500/30 shadow-2xl glow-cyan text-center transition-all duration-500 transform">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold tracking-wider uppercase mb-4">
+                <i class="fa-solid fa-flask-vial animate-bounce"></i> Kurikulum Merdeka • Fase F Kelas XII
+            </div>
+            
+            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-2">
+                MEDIA PEMBELAJARAN INTERAKTIF KIMIA
+            </h1>
+            <h2 class="text-xl sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-purple-400 mb-4">
+                Reaksi Redoks & Elektrokimia
+            </h2>
+
+            <!-- Identitas Sekolah & Guru -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 my-6 text-left bg-navy-900/60 p-4 rounded-2xl border border-white/5 text-sm">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 text-lg">
+                        <i class="fa-solid fa-school"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-400">Satuan Pendidikan</div>
+                        <div class="font-semibold text-white">SMA Negeri 29 Maluku Tengah</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400 text-lg">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-400">Guru Pengampu</div>
+                        <div class="font-semibold text-white">Muh. Kasim Wattimena, S.Pd.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Profil Peserta Didik -->
+            <form id="student-form" onsubmit="saveStudentProfile(event)" class="space-y-4 text-left">
+                <div class="text-xs font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-2">
+                    <i class="fa-solid fa-user-pen"></i> Profil Peserta Didik
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div class="sm:col-span-3">
+                        <label class="block text-xs text-slate-300 mb-1">Nama Lengkap</label>
+                        <input type="text" id="input-nama" required placeholder="Masukkan nama peserta didik..." class="w-full bg-navy-900 border border-slate-700 focus:border-cyan-400 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs text-slate-300 mb-1">Kelas</label>
+                        <select id="input-kelas" required class="w-full bg-navy-900 border border-slate-700 focus:border-cyan-400 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none transition">
+                            <option value="XII IPA 1">XII IPA 1</option>
+                            <option value="XII IPA 2">XII IPA 2</option>
+                            <option value="XII IPA 3">XII IPA 3</option>
+                            <option value="XII IPA 4">XII IPA 4</option>
+                        </select>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block text-xs text-slate-300 mb-1">No. Absen</label>
+                        <input type="number" id="input-absen" required min="1" max="50" placeholder="Contoh: 15" class="w-full bg-navy-900 border border-slate-700 focus:border-cyan-400 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none transition">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white font-bold text-base shadow-lg shadow-cyan-500/20 transform hover:-translate-y-0.5 transition active:translate-y-0 flex items-center justify-center gap-2 group">
+                    <span>MULAI BELAJAR & LAB VIRTUAL</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MAIN APP WRAPPER -->
+    <div id="main-app" class="hidden min-h-screen flex flex-col">
+
+        <!-- HEADER & NAVIGATION -->
+        <header class="sticky top-0 z-40 glass-panel border-b border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <!-- Brand / Title -->
+                    <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('dashboard')">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-purple-600 flex items-center justify-center text-white text-xl font-black shadow-md glow-cyan">
+                            <i class="fa-solid fa-atom"></i>
+                        </div>
+                        <div>
+                            <div class="font-extrabold text-sm sm:text-base leading-tight text-white tracking-wide">
+                                REDOKS & ELEKTROKIMIA
+                            </div>
+                            <div class="text-[10px] text-cyan-400 font-medium">SMAN 29 Maluku Tengah</div>
+                        </div>
+                    </div>
+
+                    <!-- Desktop Menu -->
+                    <nav class="hidden lg:flex items-center space-x-1">
+                        <button onclick="navigateTo('dashboard')" id="nav-dashboard" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold hover:bg-slate-800 transition flex items-center gap-1.5"><i class="fa-solid fa-house"></i> Beranda</button>
+                        <button onclick="navigateTo('pemantik')" id="nav-pemantik" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold hover:bg-slate-800 transition flex items-center gap-1.5"><i class="fa-solid fa-lightbulb text-yellow-400"></i> Pemantik</button>
+                        <button onclick="navigateTo('tujuan')" id="nav-tujuan" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold hover:bg-slate-800 transition flex items-center gap-1.5"><i class="fa-solid fa-bullseye text-red-400"></i> Tujuan</button>
+                        <button onclick="navigateTo('materi')" id="nav-materi" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold hover:bg-slate-800 transition flex items-center gap-1.5"><i class="fa-solid fa-book-open text-cyan-400"></i> Materi</button>
+                        <button onclick="navigateTo('lab')" id="nav-lab" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold hover:bg-slate-800 transition flex items-center gap-1.5 text-cyan-400"><i class="fa-solid fa-vial-virus"></i> Lab Virtual</button>
+                        <button onclick="navigateTo('lkpd')" id="nav-lkpd" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold hover:bg-slate-800 transition flex items-center gap-1.5"><i class="fa-solid fa-file-pen text-purple-400"></i> LKPD PBL</button>
+                        <button onclick="navigateTo('game')" id="nav-game" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold hover:bg-slate-800 transition flex items-center gap-1.5 text-emerald-400"><i class="fa-solid fa-gamepad"></i> EduGame</button>
+                        <button onclick="navigateTo('evaluasi')" id="nav-evaluasi" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold hover:bg-slate-800 transition flex items-center gap-1.5"><i class="fa-solid fa-graduation-cap text-indigo-400"></i> Evaluasi</button>
+                        <button onclick="navigateTo('refleksi')" id="nav-refleksi" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold hover:bg-slate-800 transition flex items-center gap-1.5"><i class="fa-solid fa-heart"></i> Refleksi</button>
+                        <button onclick="navigateTo('hasil')" id="nav-hasil" class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold hover:bg-slate-800 transition flex items-center gap-1.5"><i class="fa-solid fa-award text-amber-400"></i> Hasil</button>
+                    </nav>
+
+                    <!-- Student Badge & Mobile Menu Trigger -->
+                    <div class="flex items-center gap-3">
+                        <div class="hidden sm:flex items-center gap-2 bg-navy-900 border border-slate-700 px-3 py-1.5 rounded-full text-xs">
+                            <i class="fa-solid fa-circle-user text-cyan-400 text-sm"></i>
+                            <span id="header-student-name" class="font-semibold text-slate-200">Peserta Didik</span>
+                            <span id="header-student-class" class="px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 text-[10px] font-bold">XII</span>
+                        </div>
+
+                        <!-- Sound Toggle -->
+                        <button onclick="toggleAudio()" id="audio-btn" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 flex items-center justify-center text-slate-300 hover:text-white transition">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+
+                        <!-- Mobile Hamburger Button -->
+                        <button onclick="toggleMobileMenu()" class="lg:hidden w-9 h-9 rounded-xl bg-slate-800 flex items-center justify-center text-slate-300">
+                            <i class="fa-solid fa-bars text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Nav Menu -->
+            <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-800 bg-navy-900/95 p-4 space-y-2">
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                    <button onclick="navigateTo('dashboard')" class="p-2.5 rounded-lg bg-slate-800 text-left flex items-center gap-2"><i class="fa-solid fa-house text-cyan-400"></i> Beranda</button>
+                    <button onclick="navigateTo('pemantik')" class="p-2.5 rounded-lg bg-slate-800 text-left flex items-center gap-2"><i class="fa-solid fa-lightbulb text-yellow-400"></i> Pemantik</button>
+                    <button onclick="navigateTo('tujuan')" class="p-2.5 rounded-lg bg-slate-800 text-left flex items-center gap-2"><i class="fa-solid fa-bullseye text-red-400"></i> Tujuan</button>
+                    <button onclick="navigateTo('materi')" class="p-2.5 rounded-lg bg-slate-800 text-left flex items-center gap-2"><i class="fa-solid fa-book-open text-cyan-400"></i> Materi</button>
+                    <button onclick="navigateTo('lab')" class="p-2.5 rounded-lg bg-slate-800 text-left flex items-center gap-2 font-bold text-cyan-400"><i class="fa-solid fa-vial-virus"></i> Lab Virtual</button>
+                    <button onclick="navigateTo('lkpd')" class="p-2.5 rounded-lg bg-slate-800 text-left flex items-center gap-2"><i class="fa-solid fa-file-pen text-purple-400"></i> LKPD PBL</button>
+                    <button onclick="navigateTo('game')" class="p-2.5 rounded-lg bg-slate-800 text-left flex items-center gap-2 text-emerald-400"><i class="fa-solid fa-gamepad"></i> EduGame</button>
+                    <button onclick="navigateTo('evaluasi')" class="p-2.5 rounded-lg bg-slate-800 text-left flex items-center gap-2"><i class="fa-solid fa-graduation-cap text-indigo-400"></i> Evaluasi</button>
+                    <button onclick="navigateTo('refleksi')" class="p-2.5 rounded-lg bg-slate-800 text-left flex items-center gap-2"><i class="fa-solid fa-heart text-rose-400"></i> Refleksi</button>
+                    <button onclick="navigateTo('hasil')" class="p-2.5 rounded-lg bg-slate-800 text-left flex items-center gap-2"><i class="fa-solid fa-award text-amber-400"></i> Hasil Belajar</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT MAIN BODY -->
+        <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+            <!-- 1. DASHBOARD MAIN SECTION -->
+            <section id="sec-dashboard" class="space-y-6">
+                <!-- Welcome Banner -->
+                <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-navy-800 via-slate-900 to-purple-950 p-6 sm:p-8 border border-slate-700/60 shadow-xl">
+                    <div class="relative z-10 max-w-2xl">
+                        <span class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-semibold tracking-wider uppercase border border-cyan-500/30">
+                            Selamat Datang di Lab Digital
+                        </span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-3 mb-2">
+                            Halo, <span id="dash-student-name" class="text-cyan-400">Peserta Didik</span>! 👋
+                        </h2>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            Mari mejelajahi dunia reaksi reduksi-oksidasi (Redoks) dan sel elektrokimia secara interaktif. Pelajari fenomena nyata, lakukan simulasi di laboratorium virtual, selesaikan tantangan game, dan ukur pemahamanmu!
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <button onclick="navigateTo('lab')" class="px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm shadow-lg shadow-cyan-500/25 transition flex items-center gap-2">
+                                <i class="fa-solid fa-flask-vial"></i> Buka Lab Virtual
+                            </button>
+                            <button onclick="navigateTo('materi')" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm border border-slate-600 transition flex items-center gap-2">
+                                <i class="fa-solid fa-book-open"></i> Pelajari Materi
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Decorative Graphic -->
+                    <div class="absolute -right-10 -bottom-10 opacity-20 lg:opacity-40 pointer-events-none">
+                        <i class="fa-solid fa-atom text-[240px] text-cyan-400 animate-spin-slow"></i>
+                    </div>
+                </div>
+
+                <!-- Navigation Grid Cards -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                    <div onclick="navigateTo('pemantik')" class="glass-card p-4 rounded-2xl border border-slate-700/50 hover:border-cyan-500/50 hover:scale-105 transition duration-300 cursor-pointer group">
+                        <div class="w-12 h-12 rounded-xl bg-yellow-500/10 text-yellow-400 flex items-center justify-center text-xl mb-3 group-hover:bg-yellow-500 group-hover:text-slate-950 transition">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-100 text-sm mb-1">Pemantik</h3>
+                        <p class="text-xs text-slate-400">Fenomena dunia nyata redoks.</p>
+                    </div>
+
+                    <div onclick="navigateTo('materi')" class="glass-card p-4 rounded-2xl border border-slate-700/50 hover:border-cyan-500/50 hover:scale-105 transition duration-300 cursor-pointer group">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xl mb-3 group-hover:bg-cyan-500 group-hover:text-slate-950 transition">
+                            <i class="fa-solid fa-book-bookmark"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-100 text-sm mb-1">Modul Materi</h3>
+                        <p class="text-xs text-slate-400">Ringkasan & rumus lengkap.</p>
+                    </div>
+
+                    <div onclick="navigateTo('lab')" class="glass-card p-4 rounded-2xl border border-cyan-500/40 hover:border-cyan-400 hover:scale-105 transition duration-300 cursor-pointer group bg-gradient-to-br from-cyan-950/40 to-slate-900">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500 text-slate-950 flex items-center justify-center text-xl mb-3 shadow-lg shadow-cyan-500/30">
+                            <i class="fa-solid fa-vial-virus"></i>
+                        </div>
+                        <h3 class="font-bold text-cyan-300 text-sm mb-1">Lab Virtual</h3>
+                        <p class="text-xs text-slate-300">Simulasi Sel Volta & Elektrolisis.</p>
+                    </div>
+
+                    <div onclick="navigateTo('game')" class="glass-card p-4 rounded-2xl border border-slate-700/50 hover:border-emerald-500/50 hover:scale-105 transition duration-300 cursor-pointer group">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl mb-3 group-hover:bg-emerald-500 group-hover:text-slate-950 transition">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-100 text-sm mb-1">EduGame</h3>
+                        <p class="text-xs text-slate-400">Tantangan Kuis & Puzzle Redoks.</p>
+                    </div>
+
+                    <div onclick="navigateTo('evaluasi')" class="glass-card p-4 rounded-2xl border border-slate-700/50 hover:border-indigo-500/50 hover:scale-105 transition duration-300 cursor-pointer group">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-xl mb-3 group-hover:bg-indigo-500 group-hover:text-white transition">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-100 text-sm mb-1">Evaluasi</h3>
+                        <p class="text-xs text-slate-400">Soal HOTS PG & Uraian.</p>
+                    </div>
+                </div>
+
+                <!-- Teacher & School Identity Info Banner -->
+                <div class="glass-panel rounded-2xl p-6 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs text-cyan-400 font-semibold uppercase tracking-wider">Pengembang Media & Guru Pembimbing</div>
+                            <h4 class="text-lg font-bold text-white">Muh. Kasim Wattimena, S.Pd.</h4>
+                            <p class="text-xs text-slate-400">SMA Negeri 29 Maluku Tengah • Kurikulum Merdeka Fase F Kelas XII</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 w-full md:w-auto">
+                        <button onclick="navigateTo('tujuan')" class="w-full md:w-auto px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-list-check text-cyan-400"></i> Lihat 8 Capaian Tujuan
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. PEMANTIK PEMBELAJARAN SECTION -->
+            <section id="sec-pemantik" class="hidden space-y-6">
+                <div class="border-b border-slate-800 pb-4">
+                    <span class="text-xs font-bold text-yellow-400 uppercase tracking-wider"><i class="fa-solid fa-bolt"></i> Apperception & Orientation</span>
+                    <h2 class="text-2xl font-extrabold text-white mt-1">Pemantik Pembelajaran: Fenomena Kimia Sekitar Kita</h2>
+                    <p class="text-sm text-slate-400">Amati fenomena sehari-hari di bawah ini dan renungkan konsep sains di baliknya!</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Fenomena 1 -->
+                    <div class="glass-card rounded-2xl p-5 border border-slate-800 hover:border-yellow-500/40 transition">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-2xl flex-shrink-0">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <div class="space-y-2">
+                                <h3 class="font-bold text-white text-base">1. Mengapa Besi Dapat Berkarat?</h3>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    Pernahkah kamu melihat jembatan atau perahu nelayan di pesisir Maluku Tengah yang berkarat? Mengapa logam besi perlahan hancur dan berubah warna menjadi cokelat kemerahan saat terpapar udara dan air laut?
+                                </p>
+                                <div class="bg-navy-900 p-3 rounded-xl border border-slate-800 text-xs space-y-2">
+                                    <span class="font-semibold text-yellow-400">Pertanyaan Pemantik Interaktif:</span>
+                                    <p class="text-slate-300">Spesies manakah yang mengalami pengorbanan elektron (oksidasi) dalam proses perkaratan besi?</p>
+                                    <button onclick="toggleAnswer('ans-1')" class="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-cyan-400 text-xs font-medium transition flex items-center gap-1">
+                                        <i class="fa-solid fa-eye"></i> Tampilkan Penjelasan Kimia
+                                    </button>
+                                    <div id="ans-1" class="hidden mt-2 p-2.5 rounded bg-cyan-950/50 border border-cyan-800/40 text-cyan-200">
+                                        <strong>Jawab:</strong> Besi ($Fe$) melepaskan elektron mengalami <em>oksidasi</em> menjadi $Fe^{2+}$, sedangkan gas oksigen ($O_2$) dan air ($H_2O$) menangkap elektron mengalami <em>reduksi</em> membentuk karat besi $Fe_2O_3 \cdot xH_2O$.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fenomena 2 -->
+                    <div class="glass-card rounded-2xl p-5 border border-slate-800 hover:border-cyan-500/40 transition">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-2xl flex-shrink-0">
+                                <i class="fa-solid fa-battery-charging"></i>
+                            </div>
+                            <div class="space-y-2">
+                                <h3 class="font-bold text-white text-base">2. Bagaimana Baterai Mengalirkan Listrik?</h3>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    Baterai Smartphone dan jam tangan tidak dicolok ke PLN tetapi bisa menghidupkan perangkat elektronik. Bagaimana reaksi kimia di dalam ruang sekecil itu menghasilkan arus listrik murni?
+                                </p>
+                                <div class="bg-navy-900 p-3 rounded-xl border border-slate-800 text-xs space-y-2">
+                                    <span class="font-semibold text-cyan-400">Pertanyaan Pemantik Interaktif:</span>
+                                    <p class="text-slate-300">Bagaimana perubahan energi yang terjadi di dalam sel baterai?</p>
+                                    <button onclick="toggleAnswer('ans-2')" class="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-cyan-400 text-xs font-medium transition flex items-center gap-1">
+                                        <i class="fa-solid fa-eye"></i> Tampilkan Penjelasan Kimia
+                                    </button>
+                                    <div id="ans-2" class="hidden mt-2 p-2.5 rounded bg-cyan-950/50 border border-cyan-800/40 text-cyan-200">
+                                        <strong>Jawab:</strong> Baterai merupakan <strong>Sel Volta/Galvani</strong> yang mengubah <em>Energi Kimia</em> (reaksi redoks spontan) menjadi <em>Energi Listrik</em> melalui aliran elektron dari anoda ke katoda.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fenomena 3 -->
+                    <div class="glass-card rounded-2xl p-5 border border-slate-800 hover:border-purple-500/40 transition">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-2xl flex-shrink-0">
+                                <i class="fa-solid fa-car-battery"></i>
+                            </div>
+                            <div class="space-y-2">
+                                <h3 class="font-bold text-white text-base">3. Mengapa Aki Kendaraan Bisa Diisi Ulang?</h3>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    Aki timbal (accumulator) kendaraan bermotor dapat dipakai habis lalu diisi kembali (recharge). Mengapa reaksi redoks pada akumulator bisa berjalan dua arah balikan?
+                                </p>
+                                <div class="bg-navy-900 p-3 rounded-xl border border-slate-800 text-xs space-y-2">
+                                    <span class="font-semibold text-purple-400">Pertanyaan Pemantik Interaktif:</span>
+                                    <p class="text-slate-300">Prinsip apakah yang bekerja saat proses pemakaian vs pengisian aki?</p>
+                                    <button onclick="toggleAnswer('ans-3')" class="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-cyan-400 text-xs font-medium transition flex items-center gap-1">
+                                        <i class="fa-solid fa-eye"></i> Tampilkan Penjelasan Kimia
+                                    </button>
+                                    <div id="ans-3" class="hidden mt-2 p-2.5 rounded bg-purple-950/50 border border-purple-800/40 text-purple-200">
+                                        <strong>Jawab:</strong> Saat dipakai, aki bekerja sebagai <em>Sel Volta</em> (spontan). Saat diisi ulang, aki dialiri arus listrik luar sehingga bekerja sebagai <em>Sel Elektrolisis</em> mengembalikan pereaksi ke bentuk semula ($Pb$ dan $PbO_2$).
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fenomena 4 -->
+                    <div class="glass-card rounded-2xl p-5 border border-slate-800 hover:border-emerald-500/40 transition">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl flex-shrink-0">
+                                <i class="fa-solid fa-ring"></i>
+                            </div>
+                            <div class="space-y-2">
+                                <h3 class="font-bold text-white text-base">4. Bagaimana Proses Penyepuhan Emas/Perak?</h3>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    Perhiasan dari tembaga atau besi dapat disepuh (dilapisi) dengan lapisan tipis emas atau perak mengkilap. Bagaimana cara memindahkan atom emas menempel rapi pada permukaan perhiasan?
+                                </p>
+                                <div class="bg-navy-900 p-3 rounded-xl border border-slate-800 text-xs space-y-2">
+                                    <span class="font-semibold text-emerald-400">Pertanyaan Pemantik Interaktif:</span>
+                                    <p class="text-slate-300">Di manakah perhiasan diletakkan (anoda atau katoda)?</p>
+                                    <button onclick="toggleAnswer('ans-4')" class="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-cyan-400 text-xs font-medium transition flex items-center gap-1">
+                                        <i class="fa-solid fa-eye"></i> Tampilkan Penjelasan Kimia
+                                    </button>
+                                    <div id="ans-4" class="hidden mt-2 p-2.5 rounded bg-emerald-950/50 border border-emerald-800/40 text-emerald-200">
+                                        <strong>Jawab:</strong> Perhiasan diletakkan pada <strong>Katoda (Kutub Negatif)</strong> sel elektrolisis agar ion $Au^{3+}$ atau $Ag^+$ terreduksi dan mengendap melapisi benda tersebut.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. TUJUAN PEMBELAJARAN SECTION -->
+            <section id="sec-tujuan" class="hidden space-y-6">
+                <div class="border-b border-slate-800 pb-4">
+                    <span class="text-xs font-bold text-red-400 uppercase tracking-wider"><i class="fa-solid fa-bullseye"></i> Learning Targets</span>
+                    <h2 class="text-2xl font-extrabold text-white mt-1">8 Tujuan Pembelajaran Utama</h2>
+                    <p class="text-sm text-slate-400">Target indikator ketercapaian kompetensi Kurikulum Merdeka Fase F Kelas XII:</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="tujuan-cards-container">
+                    <!-- Dynamic rendering via JS or hardcoded interactive cards -->
+                </div>
+            </section>
+
+            <!-- 4. MATERI PEMBELAJARAN SECTION -->
+            <section id="sec-materi" class="hidden space-y-6">
+                <div class="border-b border-slate-800 pb-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-cyan-400 uppercase tracking-wider"><i class="fa-solid fa-book"></i> Interactive Curriculum Modules</span>
+                        <h2 class="text-2xl font-extrabold text-white mt-1">Materi & Formulasi Elektrokimia</h2>
+                    </div>
+                    <!-- Sub-Navigation for Tabs -->
+                    <div class="flex overflow-x-auto space-x-1 bg-navy-900 p-1.5 rounded-2xl border border-slate-800 text-xs">
+                        <button onclick="switchMateriTab('tab-konsep')" id="mbtn-tab-konsep" class="materi-tab-btn px-3 py-2 rounded-xl font-bold whitespace-nowrap transition bg-cyan-500 text-slate-950">1. Konsep Redoks</button>
+                        <button onclick="switchMateriTab('tab-biloks')" id="mbtn-tab-biloks" class="materi-tab-btn px-3 py-2 rounded-xl font-bold whitespace-nowrap transition text-slate-300 hover:text-white">2. Bilangan Oksidasi</button>
+                        <button onclick="switchMateriTab('tab-oks-red')" id="mbtn-tab-oks-red" class="materi-tab-btn px-3 py-2 rounded-xl font-bold whitespace-nowrap transition text-slate-300 hover:text-white">3. Oksidator & Reduktor</button>
+                        <button onclick="switchMateriTab('tab-penyetaraan')" id="mbtn-tab-penyetaraan" class="materi-tab-btn px-3 py-2 rounded-xl font-bold whitespace-nowrap transition text-slate-300 hover:text-white">4. Penyetaraan</button>
+                        <button onclick="switchMateriTab('tab-volta')" id="mbtn-tab-volta" class="materi-tab-btn px-3 py-2 rounded-xl font-bold whitespace-nowrap transition text-slate-300 hover:text-white">5. Sel Volta</button>
+                        <button onclick="switchMateriTab('tab-elektrolisis')" id="mbtn-tab-elektrolisis" class="materi-tab-btn px-3 py-2 rounded-xl font-bold whitespace-nowrap transition text-slate-300 hover:text-white">6. Sel Elektrolisis</button>
+                        <button onclick="switchMateriTab('tab-faraday')" id="mbtn-tab-faraday" class="materi-tab-btn px-3 py-2 rounded-xl font-bold whitespace-nowrap transition text-slate-300 hover:text-white">7. Hukum Faraday</button>
+                        <button onclick="switchMateriTab('tab-penerapan')" id="mbtn-tab-penerapan" class="materi-tab-btn px-3 py-2 rounded-xl font-bold whitespace-nowrap transition text-slate-300 hover:text-white">8. Penerapan</button>
+                    </div>
+                </div>
+
+                <!-- MATERI TAB CONTENT CONTAINER -->
+                <div id="materi-content-area" class="glass-panel p-6 rounded-3xl border border-slate-800">
+                    <!-- Tab 1: Konsep Redoks -->
+                    <div id="tab-konsep" class="materi-pane space-y-6">
+                        <h3 class="text-xl font-bold text-cyan-400 flex items-center gap-2">
+                            <i class="fa-solid fa-arrows-rotate"></i> 1. Perkembangan Konsep Reaksi Redoks
+                        </h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Reaksi Redoks (Reduksi-Oksidasi) mengalami perkembangan konsep dari pengikatan oksigen, perpindahan elektron, hingga perubahan bilangan oksidasi.
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-navy-900 p-4 rounded-2xl border border-slate-800">
+                                <span class="px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-300 text-xs font-bold">Konsep 1</span>
+                                <h4 class="font-bold text-white mt-2 text-sm">Berdasarkan Oksigen</h4>
+                                <ul class="text-xs text-slate-300 mt-2 space-y-1.5 list-disc list-inside">
+                                    <li><strong class="text-cyan-400">Oksidasi:</strong> Reaksi pengikatan oksigen. ($C + O_2 \rightarrow CO_2$)</li>
+                                    <li><strong class="text-purple-400">Reduksi:</strong> Reaksi pelepasan oksigen. ($CuO + H_2 \rightarrow Cu + H_2O$)</li>
+                                </ul>
+                            </div>
+                            <div class="bg-navy-900 p-4 rounded-2xl border border-slate-800">
+                                <span class="px-2.5 py-1 rounded-full bg-purple-500/10 text-purple-300 text-xs font-bold">Konsep 2</span>
+                                <h4 class="font-bold text-white mt-2 text-sm">Berdasarkan Elektron</h4>
+                                <ul class="text-xs text-slate-300 mt-2 space-y-1.5 list-disc list-inside">
+                                    <li><strong class="text-cyan-400">Oksidasi:</strong> Reaksi pelepasan elektron. ($Na \rightarrow Na^+ + e^-$)</li>
+                                    <li><strong class="text-purple-400">Reduksi:</strong> Reaksi penangkapan elektron. ($Cl_2 + 2e^- \rightarrow 2Cl^-$)</li>
+                                </ul>
+                            </div>
+                            <div class="bg-navy-900 p-4 rounded-2xl border border-slate-800">
+                                <span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-300 text-xs font-bold">Konsep 3 (Modern)</span>
+                                <h4 class="font-bold text-white mt-2 text-sm">Berdasarkan Biloks</h4>
+                                <ul class="text-xs text-slate-300 mt-2 space-y-1.5 list-disc list-inside">
+                                    <li><strong class="text-cyan-400">Oksidasi:</strong> Kenaikan bilangan oksidasi.</li>
+                                    <li><strong class="text-purple-400">Reduksi:</strong> Penurunan bilangan oksidasi.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Mini Interactive Widget: Biloks Change Visualizer -->
+                        <div class="p-4 rounded-2xl bg-gradient-to-r from-navy-900 via-slate-900 to-cyan-950 border border-cyan-800/40">
+                            <h4 class="text-xs font-bold text-cyan-400 uppercase tracking-wider mb-2">Simulasi Skala Biloks</h4>
+                            <p class="text-xs text-slate-300 mb-3">Geser slider untuk melihat perubahan status Oksidasi / Reduksi:</p>
+                            <div class="flex items-center gap-4">
+                                <input type="range" id="biloks-range" min="-4" max="7" value="0" oninput="updateBiloksScale(this.value)" class="w-full accent-cyan-400 cursor-pointer">
+                                <span id="biloks-val-disp" class="px-4 py-1.5 rounded-xl bg-cyan-500 text-slate-950 font-black text-base min-w-[60px] text-center">0</span>
+                            </div>
+                            <div id="biloks-desc-disp" class="mt-3 text-xs text-slate-300 font-medium italic">
+                                Posisi Netral (Unsur Bebas)
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Bilangan Oksidasi -->
+                    <div id="tab-biloks" class="materi-pane hidden space-y-6">
+                        <h3 class="text-xl font-bold text-cyan-400 flex items-center gap-2">
+                            <i class="fa-solid fa-calculator"></i> 2. Aturan Penentuan Bilangan Oksidasi (Biloks)
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div class="bg-navy-900 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                <h4 class="font-bold text-white text-sm text-cyan-400">Aturan Dasar Biloks:</h4>
+                                <ol class="list-decimal list-inside space-y-1.5 text-slate-300">
+                                    <li>Biloks unsur bebas (seperti $Fe, H_2, O_2, S_8$) = <strong>0</strong>.</li>
+                                    <li>Biloks ion monoatomik sama dengan muatannya (misal $Na^+ = +1, Mg^{2+} = +2, Cl^- = -1$).</li>
+                                    <li>Jumlah biloks atom dalam senyawa netral = <strong>0</strong>.</li>
+                                    <li>Jumlah biloks atom dalam ion poliatomik = <strong>muatan ionnya</strong>.</li>
+                                </ol>
+                            </div>
+                            <div class="bg-navy-900 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                <h4 class="font-bold text-white text-sm text-purple-400">Aturan Khusus Unsur:</h4>
+                                <ul class="list-disc list-inside space-y-1.5 text-slate-300">
+                                    <li>Unsur Golongan IA ($Li, Na, K$) dalam senyawa = <strong>+1</strong>.</li>
+                                    <li>Unsur Golongan IIA ($Be, Mg, Ca$) dalam senyawa = <strong>+2</strong>.</li>
+                                    <li>Atom $H$ dalam senyawa = <strong>+1</strong> (Kecuali pada hibrida logam = $-1$).</li>
+                                    <li>Atom $O$ dalam senyawa = <strong>-2</strong> (Kecuali pada peroksida = $-1$, dan $OF_2 = +2$).</li>
+                                    <li>Unsur $F$ selalu = <strong>-1</strong>.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Calculator Widget: Interactive Biloks Finder -->
+                        <div class="bg-navy-900 p-5 rounded-2xl border border-slate-700 space-y-3">
+                            <h4 class="font-bold text-sm text-white flex items-center gap-2">
+                                <i class="fa-solid fa-wand-magic-sparkles text-yellow-400"></i> Alat Kalkulator Biloks Cepat
+                            </h4>
+                            <p class="text-xs text-slate-400">Pilih senyawa untuk melihat perhitungan otomatis biloks atom pusat:</p>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="calcBiloks('KMnO4')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-cyan-300">KMnO₄ (Mn?)</button>
+                                <button onclick="calcBiloks('K2Cr2O7')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-cyan-300">K₂Cr₂O₇ (Cr?)</button>
+                                <button onclick="calcBiloks('H2SO4')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-cyan-300">H₂SO₄ (S?)</button>
+                                <button onclick="calcBiloks('Cr2O7_2-')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-cyan-300">Cr₂O₇²⁻ (Cr?)</button>
+                            </div>
+                            <div id="biloks-calc-result" class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono text-cyan-400">
+                                Klik salah satu tombol senyawa di atas untuk melihat penelusuran biloksnya...
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 3: Oksidator & Reduktor -->
+                    <div id="tab-oks-red" class="materi-pane hidden space-y-6">
+                        <h3 class="text-xl font-bold text-cyan-400 flex items-center gap-2">
+                            <i class="fa-solid fa-arrows-left-right"></i> 3. Mengidentifikasi Oksidator dan Reduktor
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                            <div class="p-4 rounded-2xl bg-cyan-950/40 border border-cyan-800/60">
+                                <h4 class="font-bold text-cyan-400 text-base mb-2">Oksidator (Pengoksidasi)</h4>
+                                <p class="text-slate-300 mb-2">Zat yang menyebabkan zat lain mengalami oksidasi, sementara zat itu sendiri mengalami <strong>REDUKSI</strong> (penurunan biloks / menangkap elektron).</p>
+                                <span class="inline-block px-2 py-1 rounded bg-cyan-500/20 text-cyan-300 font-mono text-[11px]">Ciri: Mengandung atom dengan biloks tinggi/maksimum.</span>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-purple-950/40 border border-purple-800/60">
+                                <h4 class="font-bold text-purple-400 text-base mb-2">Reduktor (Pereduksi)</h4>
+                                <p class="text-slate-300 mb-2">Zat yang menyebabkan zat lain mengalami reduksi, sementara zat itu sendiri mengalami <strong>OKSIDASI</strong> (kenaikan biloks / melepas elektron).</p>
+                                <span class="inline-block px-2 py-1 rounded bg-purple-500/20 text-purple-300 font-mono text-[11px]">Ciri: Mengandung atom dengan biloks rendah.</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-navy-900 p-4 rounded-2xl border border-slate-800 text-xs">
+                            <h4 class="font-bold text-white mb-2 text-sm">Contoh Analisis Reaksi:</h4>
+                            <p class="font-mono text-cyan-300 text-sm mb-2">Zn (s) + 2 HCl (aq) → ZnCl₂ (aq) + H₂ (g)</p>
+                            <ul class="space-y-1 text-slate-300 list-disc list-inside">
+                                <li>$Zn$: Biloks naik dari 0 ke +2 $\rightarrow$ mengalami <strong>Oksidasi</strong> (sebagai <strong>Reduktor</strong>).</li>
+                                <li>$H^+$ dalam $HCl$: Biloks turun dari +1 ke 0 $\rightarrow$ mengalami <strong>Reduksi</strong> (sebagai <strong>Oksidator</strong>).</li>
+                                <li>Hasil Oksidasi: $ZnCl_2$, Hasil Reduksi: $H_2$.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Tab 4: Penyetaraan Reaksi Redoks -->
+                    <div id="tab-penyetaraan" class="materi-pane hidden space-y-6">
+                        <h3 class="text-xl font-bold text-cyan-400 flex items-center gap-2">
+                            <i class="fa-solid fa-scale-balanced"></i> 4. Penyetaraan Persamaan Reaksi Redoks
+                        </h3>
+                        <p class="text-xs text-slate-300">Terdapat dua metode utama menyetarakan reaksi redoks:</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div class="bg-navy-900 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                <h4 class="font-bold text-cyan-400 text-sm">A. Metode Perubahan Biloks (PBO)</h4>
+                                <ol class="list-decimal list-inside space-y-1 text-slate-300">
+                                    <li>Tentukan biloks unsur yang berubah.</li>
+                                    <li>Samakan jumlah atom yang berubah biloksnya.</li>
+                                    <li>Hitung total perubahan biloks (naik/turun).</li>
+                                    <li>Samakan perubahan biloks dengan perkalian silang koefisien.</li>
+                                    <li>Samakan muatan (Suasana Asam tambah $H^+$, Basa tambah $OH^-$).</li>
+                                    <li>Samakan atom $H$ dengan menambah $H_2O$.</li>
+                                </ol>
+                            </div>
+                            <div class="bg-navy-900 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                <h4 class="font-bold text-purple-400 text-sm">B. Metode Setengah Reaksi (Ion Elektron)</h4>
+                                <ol class="list-decimal list-inside space-y-1 text-slate-300">
+                                    <li>Pisahkan reaksi menjadi 2 setengah reaksi (oksidasi & reduksi).</li>
+                                    <li>Setarakan atom selain $O$ dan $H$.</li>
+                                    <li>Setarakan $O$ dengan menambah $H_2O$.</li>
+                                    <li>Setarakan $H$ dengan menambah $H^+$ (Asam) atau $OH^-$ (Basa).</li>
+                                    <li>Setarakan muatan dengan menambah elektron ($e^-$).</li>
+                                    <li>Samakan jumlah elektron lalu jumlahkan kedua setengah reaksi.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 5: Sel Volta -->
+                    <div id="tab-volta" class="materi-pane hidden space-y-6">
+                        <h3 class="text-xl font-bold text-cyan-400 flex items-center gap-2">
+                            <i class="fa-solid fa-bolt-lightning"></i> 5. Sel Volta / Galvani
+                        </h3>
+                        <p class="text-xs text-slate-300">
+                            Sel Volta adalah sel elektrokimia yang mengubah <strong>Energi Kimia menjadi Energi Listrik</strong> secara spontan.
+                        </p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                            <div class="p-4 rounded-2xl bg-rose-950/40 border border-rose-800/60">
+                                <h4 class="font-bold text-rose-400 text-sm mb-1">ANODA (Kutub Negatif - KANAP)</h4>
+                                <ul class="list-disc list-inside text-slate-300 space-y-1">
+                                    <li>Tempat terjadinya reaksi <strong>OKSIDASI</strong>.</li>
+                                    <li>Logam melarut melepaskan elektron.</li>
+                                    <li>Elektron mengalir DARI Anoda menuju Katoda.</li>
+                                </ul>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-emerald-950/40 border border-emerald-800/60">
+                                <h4 class="font-bold text-emerald-400 text-sm mb-1">KATODA (Kutub Positif)</h4>
+                                <ul class="list-disc list-inside text-slate-300 space-y-1">
+                                    <li>Tempat terjadinya reaksi <strong>REDUKSI</strong>.</li>
+                                    <li>Ion larutan menangkap elektron mengendap di katoda.</li>
+                                    <li>Menerima arus elektron luar.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Rumus Potensial Sel -->
+                        <div class="bg-navy-900 p-4 rounded-2xl border border-slate-800 space-y-2 text-xs">
+                            <h4 class="font-bold text-yellow-400">Rumus Potensial Sel Standar ($E^\circ_{sel}$):</h4>
+                            <div class="p-3 bg-slate-950 rounded-xl text-center font-mono text-cyan-300 text-sm">
+                                $E^\circ_{sel} = E^\circ_{katoda} - E^\circ_{anoda}$ &nbsp; atau &nbsp; $E^\circ_{sel} = E^\circ_{reduksi} - E^\circ_{oksidasi}$
+                            </div>
+                            <p class="text-slate-400">Jika $E^\circ_{sel} > 0$ (Positif), maka reaksi berlangsung <strong>SPONTAN</strong> dan dapat menghasilkan arus listrik.</p>
+                        </div>
+                    </div>
+
+                    <!-- Tab 6: Sel Elektrolisis -->
+                    <div id="tab-elektrolisis" class="materi-pane hidden space-y-6">
+                        <h3 class="text-xl font-bold text-cyan-400 flex items-center gap-2">
+                            <i class="fa-solid fa-plug"></i> 6. Sel Elektrolisis
+                        </h3>
+                        <p class="text-xs text-slate-300">
+                            Sel Elektrolisis menggunakan <strong>Energi Listrik dari luar untuk mendorong Reaksi Kimia tidak spontan</strong>.
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                            <div class="bg-navy-900 p-4 rounded-2xl border border-slate-800">
+                                <h4 class="font-bold text-cyan-400 mb-1">Aturan Reaksi di Katoda (Kutub -)</h4>
+                                <p class="text-slate-300 mb-2">Terjadi reduksi kation:</p>
+                                <ul class="list-disc list-inside text-slate-400 space-y-1">
+                                    <li>Jika Kation Gol IA, IIA, Al, Mn (dalam larutan): Air terreduksi ($2H_2O + 2e^- \rightarrow H_2 + 2OH^-$).</li>
+                                    <li>Kation lain: Ion terreduksi jadi logamnya ($M^{n+} + ne^- \rightarrow M$).</li>
+                                    <li>Dalam lelehan/leburan: Kation selalu terreduksi ($M^{n+} + ne^- \rightarrow M$).</li>
+                                </ul>
+                            </div>
+                            <div class="bg-navy-900 p-4 rounded-2xl border border-slate-800">
+                                <h4 class="font-bold text-purple-400 mb-1">Aturan Reaksi di Anoda (Kutub +)</h4>
+                                <p class="text-slate-300 mb-2">Terjadi oksidasi anion:</p>
+                                <ul class="list-disc list-inside text-slate-400 space-y-1">
+                                    <li>Jika Elektroda Aktif (Cu, Ni, Fe): Elektroda sendiri teroksidasi.</li>
+                                    <li>Jika Elektroda Inert (Pt, C, Au):
+                                        <ul class="pl-4 list-square">
+                                            <li>Sisa asam oksi ($SO_4^{2-}, NO_3^-$): Air teroksidasi ($2H_2O \rightarrow O_2 + 4H^+ + 4e^-$).</li>
+                                            <li>Halida ($F^-, Cl^-, Br^-, I^-$): Ion halida teroksidasi ($2X^- \rightarrow X_2 + 2e^-$).</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 7: Hukum Faraday -->
+                    <div id="tab-faraday" class="materi-pane hidden space-y-6">
+                        <h3 class="text-xl font-bold text-cyan-400 flex items-center gap-2">
+                            <i class="fa-solid fa-weight-hanging"></i> 7. Hukum Faraday I & II
+                        </h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                            <div class="bg-navy-900 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                <h4 class="font-bold text-cyan-400 text-sm">Hukum Faraday I</h4>
+                                <p class="text-slate-300">Massa zat yang dihasilkan pada elektroda berbanding lurus dengan jumlah muatan listrik yang mengalir.</p>
+                                <div class="p-3 bg-slate-950 rounded-xl font-mono text-cyan-300 text-center text-sm">
+                                    $w = \frac{e \cdot i \cdot t}{96500}$ &nbsp; di mana &nbsp; $e = \frac{Ar}{valensi}$
+                                </div>
+                            </div>
+                            <div class="bg-navy-900 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                <h4 class="font-bold text-purple-400 text-sm">Hukum Faraday II</h4>
+                                <p class="text-slate-300">Massa zat yang dihasilkan oleh arus yang sama dalam beberapa sel berbanding lurus dengan massa ekuivalennya.</p>
+                                <div class="p-3 bg-slate-950 rounded-xl font-mono text-purple-300 text-center text-sm">
+                                    $\frac{w_1}{w_2} = \frac{e_1}{e_2}$
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Faraday Interactive Calculator -->
+                        <div class="bg-navy-900 p-4 rounded-2xl border border-slate-700 text-xs space-y-3">
+                            <h4 class="font-bold text-white flex items-center gap-2"><i class="fa-solid fa-calculator text-emerald-400"></i> Kalkulator Hukum Faraday I</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <div>
+                                    <label class="text-slate-400 block mb-1">Massa Atom ($Ar$)</label>
+                                    <input type="number" id="faraday-ar" value="63.5" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white">
+                                </div>
+                                <div>
+                                    <label class="text-slate-400 block mb-1">Valensi / Muatan ($n$)</label>
+                                    <input type="number" id="faraday-n" value="2" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white">
+                                </div>
+                                <div>
+                                    <label class="text-slate-400 block mb-1">Arus Listrik $i$ (Ampere)</label>
+                                    <input type="number" id="faraday-i" value="10" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white">
+                                </div>
+                                <div>
+                                    <label class="text-slate-400 block mb-1">Waktu $t$ (Detik)</label>
+                                    <input type="number" id="faraday-t" value="965" class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2 text-white">
+                                </div>
+                                <div class="sm:col-span-2 flex items-end">
+                                    <button onclick="calculateFaraday()" class="w-full py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-lg transition">Hitung Massa Deposit ($w$)</button>
+                                </div>
+                            </div>
+                            <div id="faraday-result" class="p-3 bg-slate-950 rounded-xl font-bold text-emerald-400 text-center font-mono">
+                                Hasil w = 0.3175 gram
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 8: Penerapan Elektrokimia -->
+                    <div id="tab-penerapan" class="materi-pane hidden space-y-6">
+                        <h3 class="text-xl font-bold text-cyan-400 flex items-center gap-2">
+                            <i class="fa-solid fa-industry"></i> 8. Penerapan Elektrokimia dalam Kehidupan
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                            <div class="bg-navy-900 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-base font-bold"><i class="fa-solid fa-car-battery"></i></div>
+                                <h4 class="font-bold text-white text-sm">1. Sel Sekunder & Baterai</h4>
+                                <p class="text-slate-300">Aki kendaraan, Baterai Lithium-ion Smartphone, Baterai Alkalin kering untuk perangkat elektronik harian.</p>
+                            </div>
+                            <div class="bg-navy-900 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center text-base font-bold"><i class="fa-solid fa-ring"></i></div>
+                                <h4 class="font-bold text-white text-sm">2. Elektroplating (Penyepuhan)</h4>
+                                <p class="text-slate-300">Melapisi sendok besi dengan perak atau merubah perhiasan menjadi tampak emas berkilau untuk estetika dan anti karat.</p>
+                            </div>
+                            <div class="bg-navy-900 p-4 rounded-2xl border border-slate-800 space-y-2">
+                                <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-base font-bold"><i class="fa-solid fa-shield-cat"></i></div>
+                                <h4 class="font-bold text-white text-sm">3. Proteksi Katodik</h4>
+                                <p class="text-slate-300">Perlindungan pipa minyak bawah tanah dan lambung kapal dengan menghubungkannya ke logam magnesium ($Mg$) sebagai anoda dikorbankan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. LABORATORIUM VIRTUAL INTERAKTIF SECTION -->
+            <section id="sec-lab" class="hidden space-y-6">
+                <div class="border-b border-slate-800 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-cyan-400 uppercase tracking-wider"><i class="fa-solid fa-vial-circle-check"></i> Virtual Interactive Physics & Chemistry Lab</span>
+                        <h2 class="text-2xl font-extrabold text-white mt-1">Laboratorium Virtual Elektrokimia</h2>
+                    </div>
+                    <div class="flex space-x-1 bg-navy-900 p-1.5 rounded-2xl border border-slate-800 text-xs">
+                        <button onclick="switchLabSim('sim-volta')" id="lbtn-sim-volta" class="lab-tab-btn px-4 py-2 rounded-xl font-bold transition bg-cyan-500 text-slate-950">1. Sel Volta</button>
+                        <button onclick="switchLabSim('sim-elektrolisis')" id="lbtn-sim-elektrolisis" class="lab-tab-btn px-4 py-2 rounded-xl font-bold transition text-slate-300 hover:text-white">2. Sel Elektrolisis</button>
+                        <button onclick="switchLabSim('sim-redoks')" id="lbtn-sim-redoks" class="lab-tab-btn px-4 py-2 rounded-xl font-bold transition text-slate-300 hover:text-white">3. Transfer Elektron</button>
+                    </div>
+                </div>
+
+                <!-- SIMULATOR 1: SEL VOLTA -->
+                <div id="sim-volta" class="lab-pane glass-panel p-6 rounded-3xl border border-cyan-500/30 space-y-4">
+                    <div class="flex flex-col lg:flex-row items-start justify-between gap-6">
+                        <!-- Canvas Display -->
+                        <div class="w-full lg:w-2/3 bg-slate-950 rounded-2xl border border-slate-800 p-4 relative overflow-hidden flex flex-col items-center">
+                            <div class="absolute top-3 left-3 bg-navy-900/80 px-3 py-1 rounded-lg border border-slate-700 text-xs text-cyan-400 font-mono">
+                                <i class="fa-solid fa-circle-dot text-emerald-400 animate-pulse"></i> Live Simulation
+                            </div>
+                            <canvas id="canvas-volta" width="600" height="340" class="w-full max-w-full h-auto bg-slate-950 rounded-xl cursor-pointer"></canvas>
+                            
+                            <!-- Control Buttons Bar -->
+                            <div class="flex items-center gap-3 mt-4">
+                                <button onclick="startVoltaSim()" class="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition">
+                                    <i class="fa-solid fa-play"></i> Mulai
+                                </button>
+                                <button onclick="pauseVoltaSim()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs flex items-center gap-1.5 transition">
+                                    <i class="fa-solid fa-pause"></i> Jeda
+                                </button>
+                                <button onclick="resetVoltaSim()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-rose-400 font-semibold text-xs flex items-center gap-1.5 transition">
+                                    <i class="fa-solid fa-rotate-right"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Simulator Parameters & Config Panel -->
+                        <div class="w-full lg:w-1/3 bg-navy-900 p-5 rounded-2xl border border-slate-800 space-y-4 text-xs">
+                            <h3 class="font-bold text-base text-white flex items-center gap-2">
+                                <i class="fa-solid fa-sliders text-cyan-400"></i> Pengaturan Elektroda
+                            </h3>
+                            
+                            <!-- Select Anode -->
+                            <div>
+                                <label class="block text-slate-300 font-semibold mb-1">Anoda (Kutub - / Oksidasi):</label>
+                                <select id="volta-anode-select" onchange="updateVoltaConfig()" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white font-semibold">
+                                    <option value="Zn" selected>Seng (Zn) - E° = -0.76 V</option>
+                                    <option value="Fe">Besi (Fe) - E° = -0.44 V</option>
+                                    <option value="Mg">Magnesium (Mg) - E° = -2.37 V</option>
+                                    <option value="Pb">Timbal (Pb) - E° = -0.13 V</option>
+                                </select>
+                            </div>
+
+                            <!-- Select Cathode -->
+                            <div>
+                                <label class="block text-slate-300 font-semibold mb-1">Katoda (Kutub + / Reduksi):</label>
+                                <select id="volta-cathode-select" onchange="updateVoltaConfig()" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white font-semibold">
+                                    <option value="Cu" selected>Tembaga (Cu) - E° = +0.34 V</option>
+                                    <option value="Ag">Perak (Ag) - E° = +0.80 V</option>
+                                    <option value="Au">Emas (Au) - E° = +1.50 V</option>
+                                </select>
+                            </div>
+
+                            <!-- Real-time Calculated Data -->
+                            <div class="p-4 rounded-xl bg-slate-950 border border-cyan-800/50 space-y-2">
+                                <div class="flex justify-between items-center text-slate-300">
+                                    <span>Potensial Sel ($E^\circ_{sel}$):</span>
+                                    <span id="volta-esel-val" class="font-bold font-mono text-cyan-400 text-base">+1.10 V</span>
+                                </div>
+                                <div class="flex justify-between items-center text-slate-300">
+                                    <span>Status Reaksi:</span>
+                                    <span id="volta-status-val" class="font-bold text-emerald-400">SPONTAN</span>
+                                </div>
+                                <div class="text-[11px] text-slate-400 border-t border-slate-800 pt-2 font-mono">
+                                    Reaksi: <span id="volta-rxn-text">Zn + Cu²⁺ → Zn²⁺ + Cu</span>
+                                </div>
+                            </div>
+
+                            <div class="p-3 bg-cyan-950/40 rounded-xl border border-cyan-800/30 text-cyan-300 text-[11px]">
+                                <i class="fa-solid fa-circle-info"></i> <strong>Petunjuk:</strong> Elektron mengalir melalui kawat atas dari Anoda ke Katoda. Jembatan garam menjaga netralitas ion.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SIMULATOR 2: SEL ELEKTROLISIS -->
+                <div id="sim-elektrolisis" class="lab-pane hidden glass-panel p-6 rounded-3xl border border-purple-500/30 space-y-4">
+                    <div class="flex flex-col lg:flex-row items-start justify-between gap-6">
+                        <!-- Canvas Display -->
+                        <div class="w-full lg:w-2/3 bg-slate-950 rounded-2xl border border-slate-800 p-4 relative overflow-hidden flex flex-col items-center">
+                            <canvas id="canvas-elektrolisis" width="600" height="340" class="w-full max-w-full h-auto bg-slate-950 rounded-xl cursor-pointer"></canvas>
+                            
+                            <!-- Control Buttons Bar -->
+                            <div class="flex items-center gap-3 mt-4">
+                                <button onclick="startElektrolisisSim()" class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs flex items-center gap-1.5 transition">
+                                    <i class="fa-solid fa-play"></i> Mulai
+                                </button>
+                                <button onclick="pauseElektrolisisSim()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs flex items-center gap-1.5 transition">
+                                    <i class="fa-solid fa-pause"></i> Jeda
+                                </button>
+                                <button onclick="resetElektrolisisSim()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-rose-400 font-semibold text-xs flex items-center gap-1.5 transition">
+                                    <i class="fa-solid fa-rotate-right"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Controls -->
+                        <div class="w-full lg:w-1/3 bg-navy-900 p-5 rounded-2xl border border-slate-800 space-y-4 text-xs">
+                            <h3 class="font-bold text-base text-white flex items-center gap-2">
+                                <i class="fa-solid fa-sliders text-purple-400"></i> Konfigurasi Elektrolisis
+                            </h3>
+                            
+                            <div>
+                                <label class="block text-slate-300 font-semibold mb-1">Pilih Larutan Elektrolit & Elektroda:</label>
+                                <select id="el-preset-select" onchange="updateElektrolisisConfig()" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white font-semibold">
+                                    <option value="NaCl_larutan">Larutan NaCl (Elektroda Pt/C)</option>
+                                    <option value="CuSO4_larutan">Larutan CuSO₄ (Elektroda C)</option>
+                                    <option value="CuSO4_penyepuhan" selected>Penyepuhan Tembaga (Elektroda Cu/Cu)</option>
+                                    <option value="NaCl_lelehan">Lelehan NaCl (Elektroda C)</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-slate-300 font-semibold mb-1">Tegangan Listrik (Volt DC):</label>
+                                <input type="range" id="el-volt-range" min="1" max="12" value="6" oninput="document.getElementById('el-volt-val').innerText = this.value + ' V'" class="w-full accent-purple-500 cursor-pointer">
+                                <div class="text-right text-purple-400 font-bold font-mono" id="el-volt-val">6 V</div>
+                            </div>
+
+                            <div class="p-4 rounded-xl bg-slate-950 border border-purple-800/50 space-y-2">
+                                <div class="text-purple-300 font-bold">Reaksi Hasil Simulasi:</div>
+                                <div class="text-[11px] text-slate-300">
+                                    <strong>Katoda (-):</strong> <span id="el-katoda-rxn" class="text-cyan-300">Cu²⁺ + 2e⁻ → Cu (s)</span>
+                                </div>
+                                <div class="text-[11px] text-slate-300">
+                                    <strong>Anoda (+):</strong> <span id="el-anoda-rxn" class="text-purple-300">Cu (s) → Cu²⁺ + 2e⁻</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SIMULATOR 3: TRANSFER ELEKTRON REDOKS -->
+                <div id="sim-redoks" class="lab-pane hidden glass-panel p-6 rounded-3xl border border-emerald-500/30 space-y-4">
+                    <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
+                        <div class="w-full lg:w-2/3 bg-slate-950 rounded-2xl border border-slate-800 p-4 relative flex flex-col items-center">
+                            <canvas id="canvas-redoks" width="600" height="340" class="w-full max-w-full h-auto bg-slate-950 rounded-xl cursor-pointer"></canvas>
+                            <div class="flex items-center gap-3 mt-4">
+                                <button onclick="triggerElectronTransfer()" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition">
+                                    <i class="fa-solid fa-atom"></i> Lepaskan 2 Elektron (Zn → Cu²⁺)
+                                </button>
+                                <button onclick="resetRedoksSim()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-rose-400 font-semibold text-xs flex items-center gap-1.5 transition">
+                                    <i class="fa-solid fa-rotate-right"></i> Reset Atom
+                                </button>
+                            </div>
+                        </div>
+                        <div class="w-full lg:w-1/3 bg-navy-900 p-5 rounded-2xl border border-slate-800 space-y-3 text-xs">
+                            <h3 class="font-bold text-base text-white text-emerald-400">Mikroskopi Transfer Elektron</h3>
+                            <p class="text-slate-300">
+                                Amati bagaimana atom Seng ($Zn$) melepaskan 2 elektron valensi (Oksidasi) yang kemudian ditangkap langsung oleh ion Tembaga ($Cu^{2+}$) di dalam larutan (Reduksi).
+                            </p>
+                            <div id="redoks-micro-log" class="p-3 rounded-xl bg-slate-950 font-mono text-[11px] text-emerald-300 space-y-1">
+                                <div>Status: Menunggu pemicu transfer elektron...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. LKPD INTERAKTIF (PBL) SECTION -->
+            <section id="sec-lkpd" class="hidden space-y-6">
+                <div class="border-b border-slate-800 pb-4">
+                    <span class="text-xs font-bold text-purple-400 uppercase tracking-wider"><i class="fa-solid fa-clipboard-list"></i> Problem Based Learning Worksheet</span>
+                    <h2 class="text-2xl font-extrabold text-white mt-1">Lembar Kerja Peserta Didik (LKPD) Digital</h2>
+                    <p class="text-sm text-slate-400">Investigasi Kasus Korosi Lambung Perahu Nelayan di Maluku Tengah</p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-6">
+                    <!-- Scenario Presentation -->
+                    <div class="p-5 rounded-2xl bg-navy-900 border border-purple-500/30 space-y-3">
+                        <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-bold">ORIENTASI MASALAH NYATA</span>
+                        <h3 class="text-lg font-bold text-white">Kasus: "Kerusakan Cepat Baling-Baling & Lambung Perahu Nelayan Masohi"</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Para nelayan di Maluku Tengah mengeluhkan baling-baling kapal yang terbuat dari besi cepat sekali mengalami korosi (karatan) berat saat melaut di air garam. Seorang teknisi merekomendasikan untuk memasang balok logam Magnesium ($Mg$) yang ditempelkan langsung pada permukaan besi kapal. Setelah beberapa bulan, balok Magnesium habis tergerus tetapi besi kapal tetap utuh dan selamat.
+                        </p>
+                    </div>
+
+                    <!-- Interactive Form Steps -->
+                    <form id="lkpd-form" onsubmit="saveLKPD(event)" class="space-y-6 text-xs">
+                        <!-- Step 1: Rumusan Hipotesis -->
+                        <div class="space-y-2">
+                            <label class="block font-bold text-cyan-400 text-sm">1. Rumusan Masalah & Hipotesis Peserta Didik</label>
+                            <p class="text-slate-400">Mengapa logam Magnesium ($Mg$) dapat melindungi besi ($Fe$) dari perkaratan di dalam air laut?</p>
+                            <textarea id="lkpd-q1" required rows="3" placeholder="Tuliskan jawaban atau hipotesismu di sini..." class="w-full bg-navy-900 border border-slate-700 focus:border-purple-400 rounded-xl p-3 text-white text-xs focus:outline-none"></textarea>
+                        </div>
+
+                        <!-- Step 2: Investigasi Data Potensial Sel -->
+                        <div class="space-y-2">
+                            <label class="block font-bold text-cyan-400 text-sm">2. Analisis Data Potensial Reduksi Standar ($E^\circ$)</label>
+                            <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 font-mono text-slate-300 space-y-1">
+                                <div>$Mg^{2+} + 2e^- \rightarrow Mg \quad E^\circ = -2.37\text{ V}$</div>
+                                <div>$Fe^{2+} + 2e^- \rightarrow Fe \quad E^\circ = -0.44\text{ V}$</div>
+                            </div>
+                            <p class="text-slate-400">Berdasarkan data harga $E^\circ$ di atas, logam manakah yang bertindak sebagai Anoda (teroksidasi lebih dahulu)? Jelaskan alasannya!</p>
+                            <textarea id="lkpd-q2" required rows="3" placeholder="Tuliskan penjelasan perbandingan potensial reduksimu..." class="w-full bg-navy-900 border border-slate-700 focus:border-purple-400 rounded-xl p-3 text-white text-xs focus:outline-none"></textarea>
+                        </div>
+
+                        <!-- Step 3: Kesimpulan -->
+                        <div class="space-y-2">
+                            <label class="block font-bold text-cyan-400 text-sm">3. Kesimpulan & Rekomendasi Solusi</label>
+                            <textarea id="lkpd-q3" required rows="3" placeholder="Tuliskan kesimpulan menyeluruh mengenai prinsip proteksi katodik..." class="w-full bg-navy-900 border border-slate-700 focus:border-purple-400 rounded-xl p-3 text-white text-xs focus:outline-none"></textarea>
+                        </div>
+
+                        <div class="flex items-center gap-3">
+                            <button type="submit" class="px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs shadow-lg shadow-purple-600/20 transition flex items-center gap-2">
+                                <i class="fa-solid fa-floppy-disk"></i> Simpan Hasil LKPD Digital
+                            </button>
+                            <span id="lkpd-status-msg" class="text-emerald-400 font-bold hidden"><i class="fa-solid fa-circle-check"></i> Berhasil Disimpan!</span>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- 7. EDUGAME SECTION -->
+            <section id="sec-game" class="hidden space-y-6">
+                <div class="border-b border-slate-800 pb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider"><i class="fa-solid fa-gamepad"></i> Gamified Learning Challenge</span>
+                        <h2 class="text-2xl font-extrabold text-white mt-1">EduGame: Master Redoks & Elektrokimia</h2>
+                    </div>
+                    <div class="flex items-center gap-4 bg-navy-900 px-4 py-2 rounded-2xl border border-slate-800">
+                        <div class="text-xs text-slate-400">Skor Game: <span id="game-score-disp" class="font-bold text-yellow-400 text-base">0</span> Pts</div>
+                        <div class="text-xs text-slate-400">Level: <span id="game-level-disp" class="font-bold text-cyan-400 text-base">1</span></div>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 rounded-3xl border border-emerald-500/30 text-center space-y-6">
+                    <!-- Game Arena Card -->
+                    <div id="game-card" class="max-w-xl mx-auto bg-navy-900 p-6 rounded-2xl border border-slate-700 space-y-4">
+                        <span id="game-category-tag" class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold uppercase tracking-wider">
+                            Level 1: Tebak Bilangan Oksidasi
+                        </span>
+                        
+                        <h3 id="game-question-text" class="text-lg font-bold text-white min-h-[50px] flex items-center justify-center">
+                            Berapakah Bilangan Oksidasi atom Mn dalam senyawa KMnO₄?
+                        </h3>
+
+                        <div id="game-options-container" class="grid grid-cols-2 gap-3">
+                            <!-- Options injected dynamically by JS -->
+                        </div>
+
+                        <div id="game-feedback" class="min-h-[30px] text-xs font-bold"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. EVALUASI PEMBELAJARAN SECTION -->
+            <section id="sec-evaluasi" class="hidden space-y-6">
+                <div class="border-b border-slate-800 pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider"><i class="fa-solid fa-graduation-cap"></i> HOTS Summative Assessment</span>
+                        <h2 class="text-2xl font-extrabold text-white mt-1">Evaluasi Pembelajaran Kimia</h2>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-bold">15 PG + 5 Uraian HOTS</span>
+                    </div>
+                </div>
+
+                <!-- Evaluasi Form -->
+                <form id="evaluasi-form" onsubmit="submitEvaluasi(event)" class="space-y-6">
+                    
+                    <!-- PILIHAN GANDA CONTAINER -->
+                    <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-6">
+                        <h3 class="text-lg font-bold text-cyan-400 border-b border-slate-800 pb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-list-check"></i> Bagian I: Pilihan Ganda (15 Soal)
+                        </h3>
+
+                        <div id="pg-questions-container" class="space-y-6">
+                            <!-- Dynamic rendering via JS -->
+                        </div>
+                    </div>
+
+                    <!-- URAIAN HOTS CONTAINER -->
+                    <div class="glass-panel p-6 rounded-3xl border border-slate-800 space-y-6">
+                        <h3 class="text-lg font-bold text-purple-400 border-b border-slate-800 pb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-pen-ruler"></i> Bagian II: Soal Uraian HOTS (5 Soal)
+                        </h3>
+
+                        <div id="essay-questions-container" class="space-y-6">
+                            <!-- Dynamic rendering via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center pt-4">
+                        <button type="submit" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-indigo-600 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white font-extrabold text-base shadow-xl shadow-cyan-500/20 transform hover:scale-105 transition flex items-center justify-center gap-2 mx-auto">
+                            <i class="fa-solid fa-paper-plane"></i> KIRIM JAWABAN EVALUASI & HITUNG SKOR
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- 9. REFLEKSI SECTION -->
+            <section id="sec-refleksi" class="hidden space-y-6">
+                <div class="border-b border-slate-800 pb-4">
+                    <span class="text-xs font-bold text-rose-400 uppercase tracking-wider"><i class="fa-solid fa-heart"></i> Student Reflection Journal</span>
+                    <h2 class="text-2xl font-extrabold text-white mt-1">Refleksi Pembelajaran</h2>
+                    <p class="text-sm text-slate-400">Renungkan pengalaman belajar dan tingkat pemahaman dirimu!</p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-3xl border border-slate-800 max-w-3xl mx-auto space-y-6">
+                    <form id="refleksi-form" onsubmit="saveRefleksi(event)" class="space-y-5 text-xs">
+                        <div>
+                            <label class="block font-bold text-slate-200 mb-2">1. Konsep mana yang paling kamu pahami dengan sangat baik?</label>
+                            <textarea id="ref-q1" required rows="3" placeholder="Contoh: Saya sangat memahami penentuan biloks dan cara kerja sel volta..." class="w-full bg-navy-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-rose-400"></textarea>
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-200 mb-2">2. Konsep atau bagian mana yang masih membingungkan bagi kamu?</label>
+                            <textarea id="ref-q2" required rows="3" placeholder="Contoh: Masih perlu latihan lebih banyak pada aturan penentuan reaksi di anoda sel elektrolisis..." class="w-full bg-navy-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-rose-400"></textarea>
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-200 mb-2">3. Menurutmu, bagaimana kebermanfaatan reaksi redoks dalam kehidupan sehari-hari?</label>
+                            <textarea id="ref-q3" required rows="3" placeholder="Tuliskan tanggapanmu..." class="w-full bg-navy-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-rose-400"></textarea>
+                        </div>
+                        <div>
+                            <label class="block font-bold text-slate-200 mb-2">4. Kepuasan Pengalaman Belajar Interaktif Ini:</label>
+                            <div class="flex gap-4 items-center">
+                                <label class="flex items-center gap-1 cursor-pointer"><input type="radio" name="ref-star" value="5" checked class="accent-rose-500"> ⭐⭐⭐⭐⭐ Sangat Senang</label>
+                                <label class="flex items-center gap-1 cursor-pointer"><input type="radio" name="ref-star" value="4" class="accent-rose-500"> ⭐⭐⭐⭐ Senang</label>
+                                <label class="flex items-center gap-1 cursor-pointer"><input type="radio" name="ref-star" value="3" class="accent-rose-500"> ⭐⭐⭐ Cukup</label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full py-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold shadow-lg shadow-rose-600/20 transition">
+                            Simpan Refleksi Diri
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- 10. HASIL BELAJAR & SERTIFIKAT REPORT SECTION -->
+            <section id="sec-hasil" class="hidden space-y-6">
+                <div class="border-b border-slate-800 pb-4 flex items-center justify-between no-print">
+                    <div>
+                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider"><i class="fa-solid fa-award"></i> Student Mastery Report</span>
+                        <h2 class="text-2xl font-extrabold text-white mt-1">Laporan Hasil Belajar Digital</h2>
+                    </div>
+                    <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-2 shadow-lg transition">
+                        <i class="fa-solid fa-print"></i> Cetak / Simpan PDF
+                    </button>
+                </div>
+
+                <!-- REPORT CARD TO BE PRINTED -->
+                <div class="glass-panel p-8 rounded-3xl border border-slate-700 space-y-6 bg-slate-900 text-slate-100" id="report-card">
+                    <!-- Report Header -->
+                    <div class="border-b-2 border-cyan-500 pb-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div>
+                            <h2 class="text-xl font-extrabold text-white tracking-wide">SMA NEGERI 29 MALUKU TENGAH</h2>
+                            <p class="text-xs text-cyan-400">LAPORAN CAPAIAN MEDIA PEMBELAJARAN INTERAKTIF KIMIA</p>
+                            <p class="text-[11px] text-slate-400">Materi: Reaksi Redoks dan Sel Elektrokimia • Kurikulum Merdeka (Fase F)</p>
+                        </div>
+                        <div class="text-right text-xs">
+                            <div class="font-bold text-white">Guru Pengampu:</div>
+                            <div class="text-slate-300">Muh. Kasim Wattimena, S.Pd.</div>
+                        </div>
+                    </div>
+
+                    <!-- Student Info Summary -->
+                    <div class="grid grid-cols-3 gap-4 bg-navy-900 p-4 rounded-2xl text-xs border border-slate-800">
+                        <div>
+                            <span class="text-slate-400 block">Nama Peserta Didik:</span>
+                            <span id="report-nama" class="font-bold text-cyan-300 text-sm">-</span>
+                        </div>
+                        <div>
+                            <span class="text-slate-400 block">Kelas:</span>
+                            <span id="report-kelas" class="font-bold text-white text-sm">-</span>
+                        </div>
+                        <div>
+                            <span class="text-slate-400 block">No. Absen:</span>
+                            <span id="report-absen" class="font-bold text-white text-sm">-</span>
+                        </div>
+                    </div>
+
+                    <!-- Scores & Accomplishment Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-center space-y-1">
+                            <span class="text-xs text-slate-400">Nilai Evaluasi PG</span>
+                            <div id="report-score-pg" class="text-3xl font-black text-cyan-400">0</div>
+                            <span id="report-status-badge" class="inline-block px-2 py-0.5 rounded bg-slate-800 text-[10px] text-slate-400">Belum Evaluasi</span>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-center space-y-1">
+                            <span class="text-xs text-slate-400">Skor High Game</span>
+                            <div id="report-score-game" class="text-3xl font-black text-emerald-400">0 Pts</div>
+                            <span class="text-[10px] text-slate-400">EduGame Master</span>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-center space-y-1">
+                            <span class="text-xs text-slate-400">Status LKPD & Refleksi</span>
+                            <div id="report-status-lkpd" class="text-sm font-bold text-purple-400 pt-2">Lengkap</div>
+                            <span class="text-[10px] text-slate-400">Tersimpan di Sistem</span>
+                        </div>
+                    </div>
+
+                    <!-- Feedback & Teachers Note -->
+                    <div class="p-4 rounded-2xl bg-navy-900 border border-slate-800 text-xs space-y-2">
+                        <h4 class="font-bold text-yellow-400">Umpan Balik & Rekomendasi Belajar:</h4>
+                        <p id="report-feedback-text" class="text-slate-300 italic">
+                            Silakan selesaikan sesi Evaluasi Pembelajaran untuk mendapatkan nilai komprehensif dan umpan balik ketuntasan belajar.
+                        </p>
+                    </div>
+
+                    <!-- Footer Signature Placeholder for Print -->
+                    <div class="pt-8 flex justify-between items-end text-xs">
+                        <div>
+                            <p class="text-slate-400">Tanggal Akses: <span id="report-date">31 Oktober 2026</span></p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-slate-400 mb-12">Guru Mata Pelajaran Kimia,</p>
+                            <p class="font-bold text-white underline">Muh. Kasim Wattimena, S.Pd.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="glass-panel border-t border-slate-800 py-4 mt-8 no-print">
+            <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-1">
+                <p>&copy; 2026 Media Pembelajaran Interaktif Kimia • SMAN 29 Maluku Tengah</p>
+                <p>Dikembangkan oleh Muh. Kasim Wattimena, S.Pd. dengan Kurikulum Merdeka (Fase F Class XII)</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* ==================== GLOBAL APP STATE ==================== */
+        const state = {
+            student: { nama: '', kelas: '', absen: '' },
+            currentSection: 'dashboard',
+            audioEnabled: true,
+            evalAnswers: {},
+            evalScore: 0,
+            gameScore: 0,
+            gameLevel: 1,
+            gameCurrentIdx: 0,
+            lkpdSaved: false,
+            refleksiSaved: false
+        };
+
+        // Web Audio API Synth Generator (No external audio files required!)
+        let audioCtx = null;
+        function playSound(type) {
+            if (!state.audioEnabled) return;
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'click') {
+                    osc.frequency.value = 400;
+                    gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.08);
+                } else if (type === 'correct') {
+                    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                    osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.3);
+                } else if (type === 'wrong') {
+                    osc.frequency.value = 180;
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.25);
+                }
+            } catch(e) {}
+        }
+
+        function toggleAudio() {
+            state.audioEnabled = !state.audioEnabled;
+            const btn = document.getElementById('audio-btn');
+            btn.innerHTML = state.audioEnabled ? '<i class="fa-solid fa-volume-high"></i>' : '<i class="fa-solid fa-volume-xmark text-rose-400"></i>';
+        }
+
+        /* ==================== INIT & NAVIGATION ==================== */
+        window.addEventListener('load', () => {
+            initHeroCanvas();
+            renderTujuanCards();
+            renderEvaluasiQuestions();
+            initGame();
+            loadLocalStorageData();
+            document.getElementById('report-date').innerText = new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+        });
+
+        function saveStudentProfile(e) {
+            e.preventDefault();
+            playSound('click');
+            state.student.nama = document.getElementById('input-nama').value;
+            state.student.kelas = document.getElementById('input-kelas').value;
+            state.student.absen = document.getElementById('input-absen').value;
+
+            // Update UI elements
+            document.getElementById('header-student-name').innerText = state.student.nama;
+            document.getElementById('header-student-class').innerText = state.student.kelas;
+            document.getElementById('dash-student-name').innerText = state.student.nama;
+            document.getElementById('report-nama').innerText = state.student.nama;
+            document.getElementById('report-kelas').innerText = state.student.kelas;
+            document.getElementById('report-absen').innerText = state.student.absen;
+
+            // Hide splash, show main app
+            document.getElementById('splash-modal').classList.add('hidden');
+            document.getElementById('main-app').classList.remove('hidden');
+
+            // Save to localStorage
+            localStorage.setItem('kimia_student_profile', JSON.stringify(state.student));
+
+            // Init Canvas Labs after layout rendering
+            setTimeout(() => {
+                initVoltaCanvas();
+                initElektrolisisCanvas();
+                initRedoksCanvas();
+            }, 200);
+        }
+
+        function loadLocalStorageData() {
+            const savedProfile = localStorage.getItem('kimia_student_profile');
+            if (savedProfile) {
+                const p = JSON.parse(savedProfile);
+                document.getElementById('input-nama').value = p.nama || '';
+                document.getElementById('input-kelas').value = p.kelas || 'XII IPA 1';
+                document.getElementById('input-absen').value = p.absen || '';
+            }
+        }
+
+        function navigateTo(sectionId) {
+            playSound('click');
+            // Hide all sections
+            const sections = ['dashboard', 'pemantik', 'tujuan', 'materi', 'lab', 'lkpd', 'game', 'evaluasi', 'refleksi', 'hasil'];
+            sections.forEach(s => {
+                const el = document.getElementById(`sec-${s}`);
+                if (el) el.classList.add('hidden');
+                const navBtn = document.getElementById(`nav-${s}`);
+                if (navBtn) navBtn.classList.remove('bg-slate-800', 'text-cyan-400');
+            });
+
+            // Show selected section
+            const target = document.getElementById(`sec-${sectionId}`);
+            if (target) target.classList.remove('hidden');
+
+            const targetNav = document.getElementById(`nav-${sectionId}`);
+            if (targetNav) targetNav.classList.add('bg-slate-800', 'text-cyan-400');
+
+            state.currentSection = sectionId;
+            document.getElementById('mobile-menu').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Trigger canvas redraws if navigating to lab
+            if (sectionId === 'lab') {
+                setTimeout(() => {
+                    drawVolta();
+                    drawElektrolisis();
+                    drawRedoks();
+                }, 100);
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function toggleAnswer(id) {
+            playSound('click');
+            const el = document.getElementById(id);
+            el.classList.toggle('hidden');
+        }
+
+        /* ==================== HERO CANVAS ANIMATION ==================== */
+        function initHeroCanvas() {
+            const canvas = document.getElementById('hero-bg-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            const particles = [];
+            for (let i = 0; i < 40; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 3 + 1,
+                    vx: (Math.random() - 0.5) * 0.8,
+                    vy: (Math.random() - 0.5) * 0.8,
+                    color: Math.random() > 0.5 ? '#06b6d4' : '#a855f7'
+                });
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0 || p.x > width) p.vx *= -1;
+                    if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = p.color;
+                    ctx.fill();
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        /* ==================== TUJUAN CARDS RENDER ==================== */
+        const tujuanData = [
+            { id: 1, title: "1. Konsep Redoks", desc: "Menjelaskan konsep oksidasi dan reduksi berdasarkan pengikatan oksigen, elektron, dan biloks.", icon: "fa-arrows-rotate", color: "border-cyan-500/40" },
+            { id: 2, title: "2. Bilangan Oksidasi", desc: "Menentukan bilangan oksidasi suatu unsur dalam senyawa maupun ion poliatomik secara tepat.", icon: "fa-calculator", color: "border-purple-500/40" },
+            { id: 3, title: "3. Oksidator & Reduktor", desc: "Mengidentifikasi spesi pengoksidasi (oksidator) dan pereduksi (reduktor) pada persamaan reaksi.", icon: "fa-arrows-left-right", color: "border-emerald-500/40" },
+            { id: 4, title: "4. Penyetaraan Reaksi", desc: "Menyetarakan persamaan reaksi redoks dengan metode PBO dan Setengah Reaksi (Ion Elektron).", icon: "fa-scale-balanced", color: "border-amber-500/40" },
+            { id: 5, title: "5. Prinsip Sel Volta", desc: "Menjelaskan prinsip kerja sel Volta/Galvani dan penentuan potensial sel standar (E° cell).", icon: "fa-bolt-lightning", color: "border-rose-500/40" },
+            { id: 6, title: "6. Komponen Elektroda", desc: "Mengidentifikasi Anoda, Katoda, Jembatan Garam, dan arah aliran elektron dalam sel elektrokimia.", icon: "fa-atom", color: "border-teal-500/40" },
+            { id: 7, title: "7. Sel Elektrolisis", desc: "Menjelaskan prinsip kerja sel elektrolisis, reaksi pada katoda/anoda, dan Hukum Faraday.", icon: "fa-plug", color: "border-indigo-500/40" },
+            { id: 8, title: "8. Penerapan Sehari-hari", desc: "Menganalisis penerapan elektrokimia seperti aki, penyepuhan logam (plating), dan pencegahan korosi.", icon: "fa-industry", color: "border-blue-500/40" }
+        ];
+
+        function renderTujuanCards() {
+            const container = document.getElementById('tujuan-cards-container');
+            container.innerHTML = tujuanData.map(t => `
+                <div class="glass-card p-5 rounded-2xl border ${t.color} hover:scale-105 transition duration-300 space-y-2">
+                    <div class="w-10 h-10 rounded-xl bg-slate-800 text-cyan-400 flex items-center justify-center text-lg">
+                        <i class="fa-solid ${t.icon}"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-sm">${t.title}</h3>
+                    <p class="text-xs text-slate-300 leading-relaxed">${t.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        /* ==================== MATERI INTERACTION LOGIC ==================== */
+        function switchMateriTab(tabId) {
+            playSound('click');
+            document.querySelectorAll('.materi-pane').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.materi-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-cyan-500', 'text-slate-950');
+                btn.classList.add('text-slate-300');
+            });
+
+            document.getElementById(tabId).classList.remove('hidden');
+            const activeBtn = document.getElementById(`mbtn-${tabId}`);
+            activeBtn.classList.add('bg-cyan-500', 'text-slate-950');
+            activeBtn.classList.remove('text-slate-300');
+        }
+
+        function updateBiloksScale(val) {
+            const v = parseInt(val);
+            const disp = document.getElementById('biloks-val-disp');
+            const desc = document.getElementById('biloks-desc-disp');
+            disp.innerText = (v > 0 ? '+' : '') + v;
+
+            if (v > 0) {
+                disp.className = "px-4 py-1.5 rounded-xl bg-cyan-500 text-slate-950 font-black text-base min-w-[60px] text-center";
+                desc.innerHTML = `<span class="text-cyan-400">Status Oksidasi</span> (Pelepasan ${v} elektron / Kenaikan Biloks)`;
+            } else if (v < 0) {
+                disp.className = "px-4 py-1.5 rounded-xl bg-purple-500 text-white font-black text-base min-w-[60px] text-center";
+                desc.innerHTML = `<span class="text-purple-400">Status Reduksi</span> (Penangkapan ${Math.abs(v)} elektron / Penurunan Biloks)`;
+            } else {
+                disp.className = "px-4 py-1.5 rounded-xl bg-slate-700 text-white font-black text-base min-w-[60px] text-center";
+                desc.innerHTML = `Posisi Netral (Unsur Bebas)`;
+            }
+        }
+
+        function calcBiloks(comp) {
+            playSound('click');
+            const res = document.getElementById('biloks-calc-result');
+            if (comp === 'KMnO4') {
+                res.innerHTML = `<strong>KMnO₄:</strong><br>Biloks K (+1) + Mn (?) + 4 × O (-2) = 0<br>+1 + Mn - 8 = 0 &nbsp;⇒&nbsp; <span class="text-yellow-400 font-bold">Biloks Mn = +7</span>`;
+            } else if (comp === 'K2Cr2O7') {
+                res.innerHTML = `<strong>K₂Cr₂O₇:</strong><br>2 × K (+1) + 2 × Cr (?) + 7 × O (-2) = 0<br>+2 + 2Cr - 14 = 0 &nbsp;⇒&nbsp; 2Cr = +12 &nbsp;⇒&nbsp; <span class="text-yellow-400 font-bold">Biloks Cr = +6</span>`;
+            } else if (comp === 'H2SO4') {
+                res.innerHTML = `<strong>H₂SO₄:</strong><br>2 × H (+1) + S (?) + 4 × O (-2) = 0<br>+2 + S - 8 = 0 &nbsp;⇒&nbsp; <span class="text-yellow-400 font-bold">Biloks S = +6</span>`;
+            } else if (comp === 'Cr2O7_2-') {
+                res.innerHTML = `<strong>Cr₂O₇²⁻ (Ion):</strong><br>2 × Cr (?) + 7 × O (-2) = -2<br>2Cr - 14 = -2 &nbsp;⇒&nbsp; 2Cr = +12 &nbsp;⇒&nbsp; <span class="text-yellow-400 font-bold">Biloks Cr = +6</span>`;
+            }
+        }
+
+        function calculateFaraday() {
+            playSound('click');
+            const Ar = parseFloat(document.getElementById('faraday-ar').value) || 0;
+            const n = parseFloat(document.getElementById('faraday-n').value) || 1;
+            const i = parseFloat(document.getElementById('faraday-i').value) || 0;
+            const t = parseFloat(document.getElementById('faraday-t').value) || 0;
+
+            const e = Ar / n;
+            const w = (e * i * t) / 96500;
+            document.getElementById('faraday-result').innerText = `Hasil Massa Deposit (w) = ${w.toFixed(4)} gram`;
+        }
+
+        /* ==================== LABORATORIUM VIRTUAL CANVASES ==================== */
+        function switchLabSim(simId) {
+            playSound('click');
+            document.querySelectorAll('.lab-pane').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.lab-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-cyan-500', 'text-slate-950');
+                btn.classList.add('text-slate-300');
+            });
+
+            document.getElementById(simId).classList.remove('hidden');
+            const activeBtn = document.getElementById(`lbtn-${simId}`);
+            activeBtn.classList.add('bg-cyan-500', 'text-slate-950');
+            activeBtn.classList.remove('text-slate-300');
+
+            if (simId === 'sim-volta') drawVolta();
+            if (simId === 'sim-elektrolisis') drawElektrolisis();
+            if (simId === 'sim-redoks') drawRedoks();
+        }
+
+        // --- SIMULATOR 1: SEL VOLTA ---
+        let voltaAnimId = null;
+        let voltaRunning = false;
+        let voltaState = { anode: 'Zn', cathode: 'Cu', electronPos: 0 };
+        const E0_VALUES = { Mg: -2.37, Zn: -0.76, Fe: -0.44, Pb: -0.13, Cu: 0.34, Ag: 0.80, Au: 1.50 };
+
+        function initVoltaCanvas() {
+            drawVolta();
+        }
+
+        function updateVoltaConfig() {
+            voltaState.anode = document.getElementById('volta-anode-select').value;
+            voltaState.cathode = document.getElementById('volta-cathode-select').value;
+
+            const eAnode = E0_VALUES[voltaState.anode];
+            const eCathode = E0_VALUES[voltaState.cathode];
+            const eCell = eCathode - eAnode;
+
+            document.getElementById('volta-esel-val').innerText = (eCell >= 0 ? '+' : '') + eCell.toFixed(2) + ' V';
+            document.getElementById('volta-status-val').innerText = eCell > 0 ? 'SPONTAN' : 'TIDAK SPONTAN';
+            document.getElementById('volta-status-val').className = eCell > 0 ? 'font-bold text-emerald-400' : 'font-bold text-rose-400';
+            document.getElementById('volta-rxn-text').innerText = `${voltaState.anode} + ${voltaState.cathode}²⁺ → ${voltaState.anode}²⁺ + ${voltaState.cathode}`;
+
+            drawVolta();
+        }
+
+        function drawVolta() {
+            const canvas = document.getElementById('canvas-volta');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width;
+            const h = canvas.height;
+
+            ctx.clearRect(0, 0, w, h);
+
+            // Beaker Left (Anode)
+            ctx.fillStyle = 'rgba(6, 182, 212, 0.2)';
+            ctx.fillRect(80, 160, 140, 140);
+            ctx.strokeStyle = '#38bdf8';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(80, 160, 140, 140);
+
+            // Beaker Right (Cathode)
+            ctx.fillStyle = 'rgba(168, 85, 247, 0.2)';
+            ctx.fillRect(380, 160, 140, 140);
+            ctx.strokeStyle = '#c084fc';
+            ctx.strokeRect(380, 160, 140, 140);
+
+            // Electrode Left (Anode Bar)
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillRect(130, 100, 30, 150);
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 12px sans-serif';
+            ctx.fillText(voltaState.anode + ' (Anoda -)', 110, 90);
+
+            // Electrode Right (Cathode Bar)
+            ctx.fillStyle = '#f59e0b';
+            ctx.fillRect(430, 100, 30, 150);
+            ctx.fillText(voltaState.cathode + ' (Katoda +)', 410, 90);
+
+            // Salt Bridge (U-Tube)
+            ctx.strokeStyle = '#cbd5e1';
+            ctx.lineWidth = 20;
+            ctx.beginPath();
+            ctx.moveTo(190, 220);
+            ctx.lineTo(190, 140);
+            ctx.lineTo(410, 140);
+            ctx.lineTo(410, 220);
+            ctx.stroke();
+            ctx.fillStyle = '#0f172a';
+            ctx.font = '10px sans-serif';
+            ctx.fillText('Jembatan Garam (KNO₃)', 240, 135);
+
+            // Connecting Wire & Voltmeter
+            ctx.strokeStyle = '#facc15';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(145, 100);
+            ctx.lineTo(145, 40);
+            ctx.lineTo(445, 40);
+            ctx.lineTo(445, 100);
+            ctx.stroke();
+
+            // Voltmeter Gauge Circle
+            ctx.fillStyle = '#1e293b';
+            ctx.beginPath();
+            ctx.arc(295, 40, 25, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = '#06b6d4';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            const eAnode = E0_VALUES[voltaState.anode];
+            const eCathode = E0_VALUES[voltaState.cathode];
+            const eCell = (eCathode - eAnode).toFixed(2);
+            ctx.fillStyle = '#22d3ee';
+            ctx.font = 'bold 10px sans-serif';
+            ctx.fillText(eCell + 'V', 282, 44);
+
+            // Electron Flow Animation Dot
+            if (voltaRunning) {
+                voltaState.electronPos = (voltaState.electronPos + 3) % 300;
+                let ex = 145 + voltaState.electronPos;
+                let ey = 40;
+                if (ex > 445) ex = 445;
+
+                ctx.fillStyle = '#38bdf8';
+                ctx.beginPath();
+                ctx.arc(ex, ey, 6, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#000';
+                ctx.font = 'bold 9px sans-serif';
+                ctx.fillText('e⁻', ex - 4, ey + 3);
+            }
+        }
+
+        function startVoltaSim() {
+            if (voltaRunning) return;
+            playSound('click');
+            voltaRunning = true;
+            function loop() {
+                if (!voltaRunning) return;
+                drawVolta();
+                voltaAnimId = requestAnimationFrame(loop);
+            }
+            loop();
+        }
+
+        function pauseVoltaSim() {
+            playSound('click');
+            voltaRunning = false;
+            cancelAnimationFrame(voltaAnimId);
+        }
+
+        function resetVoltaSim() {
+            playSound('click');
+            pauseVoltaSim();
+            voltaState.electronPos = 0;
+            drawVolta();
+        }
+
+        // --- SIMULATOR 2: SEL ELEKTROLISIS ---
+        let elAnimId = null;
+        let elRunning = false;
+        let elBubbles = [];
+
+        function initElektrolisisCanvas() {
+            for (let i = 0; i < 25; i++) {
+                elBubbles.push({
+                    x: Math.random() > 0.5 ? 200 + Math.random() * 30 : 370 + Math.random() * 30,
+                    y: 180 + Math.random() * 100,
+                    r: Math.random() * 4 + 2,
+                    speed: Math.random() * 1.5 + 0.5
+                });
+            }
+            drawElektrolisis();
+        }
+
+        function updateElektrolisisConfig() {
+            const preset = document.getElementById('el-preset-select').value;
+            const katodaText = document.getElementById('el-katoda-rxn');
+            const anodaText = document.getElementById('el-anoda-rxn');
+
+            if (preset === 'NaCl_larutan') {
+                katodaText.innerText = '2H₂O + 2e⁻ → H₂ (g) + 2OH⁻';
+                anodaText.innerText = '2Cl⁻ → Cl₂ (g) + 2e⁻';
+            } else if (preset === 'CuSO4_larutan') {
+                katodaText.innerText = 'Cu²⁺ + 2e⁻ → Cu (s)';
+                anodaText.innerText = '2H₂O → O₂ (g) + 4H⁺ + 4e⁻';
+            } else if (preset === 'CuSO4_penyepuhan') {
+                katodaText.innerText = 'Cu²⁺ + 2e⁻ → Cu (s) [Mengendap]';
+                anodaText.innerText = 'Cu (s) → Cu²⁺ + 2e⁻ [Melarut]';
+            } else if (preset === 'NaCl_lelehan') {
+                katodaText.innerText = 'Na⁺ + e⁻ → Na (l)';
+                anodaText.innerText = '2Cl⁻ → Cl₂ (g) + 2e⁻';
+            }
+            drawElektrolisis();
+        }
+
+        function drawElektrolisis() {
+            const canvas = document.getElementById('canvas-elektrolisis');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width;
+            const h = canvas.height;
+
+            ctx.clearRect(0, 0, w, h);
+
+            // Single Large Beaker
+            ctx.fillStyle = 'rgba(147, 51, 234, 0.15)';
+            ctx.fillRect(150, 140, 300, 160);
+            ctx.strokeStyle = '#a855f7';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(150, 140, 300, 160);
+
+            // DC Power Supply (Battery)
+            ctx.fillStyle = '#1e293b';
+            ctx.fillRect(250, 20, 100, 40);
+            ctx.strokeStyle = '#e2e8f0';
+            ctx.strokeRect(250, 20, 100, 40);
+            ctx.fillStyle = '#38bdf8';
+            ctx.font = 'bold 12px sans-serif';
+            ctx.fillText('DC POWER', 268, 44);
+
+            // Wire Left (Cathode -)
+            ctx.strokeStyle = '#22d3ee';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(250, 40);
+            ctx.lineTo(200, 40);
+            ctx.lineTo(200, 100);
+            ctx.stroke();
+
+            // Wire Right (Anode +)
+            ctx.strokeStyle = '#f43f5e';
+            ctx.beginPath();
+            ctx.moveTo(350, 40);
+            ctx.lineTo(400, 40);
+            ctx.lineTo(400, 100);
+            ctx.stroke();
+
+            // Cathode Bar (-)
+            ctx.fillStyle = '#64748b';
+            ctx.fillRect(185, 100, 30, 170);
+            ctx.fillStyle = '#22d3ee';
+            ctx.font = 'bold 11px sans-serif';
+            ctx.fillText('Katoda (-)', 175, 90);
+
+            // Anode Bar (+)
+            ctx.fillStyle = '#64748b';
+            ctx.fillRect(385, 100, 30, 170);
+            ctx.fillStyle = '#f43f5e';
+            ctx.fillText('Anoda (+)', 378, 90);
+
+            // Animated Bubbles
+            if (elRunning) {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                elBubbles.forEach(b => {
+                    b.y -= b.speed;
+                    if (b.y < 140) b.y = 280;
+                    ctx.beginPath();
+                    ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+            }
+        }
+
+        function startElektrolisisSim() {
+            if (elRunning) return;
+            playSound('click');
+            elRunning = true;
+            function loop() {
+                if (!elRunning) return;
+                drawElektrolisis();
+                elAnimId = requestAnimationFrame(loop);
+            }
+            loop();
+        }
+
+        function pauseElektrolisisSim() {
+            playSound('click');
+            elRunning = false;
+            cancelAnimationFrame(elAnimId);
+        }
+
+        function resetElektrolisisSim() {
+            playSound('click');
+            pauseElektrolisisSim();
+            drawElektrolisis();
+        }
+
+        // --- SIMULATOR 3: REDOKS ELECTRON TRANSFER ---
+        let redoksStage = 0;
+        function initRedoksCanvas() {
+            drawRedoks();
+        }
+
+        function drawRedoks() {
+            const canvas = document.getElementById('canvas-redoks');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width;
+            const h = canvas.height;
+
+            ctx.clearRect(0, 0, w, h);
+
+            // Zn Atom (Left)
+            ctx.fillStyle = '#94a3b8';
+            ctx.beginPath();
+            ctx.arc(180, 170, 55, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 20px sans-serif';
+            ctx.fillText('Zn', 166, 177);
+
+            // Cu2+ Ion (Right)
+            ctx.fillStyle = '#06b6d4';
+            ctx.beginPath();
+            ctx.arc(420, 170, 45, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 18px sans-serif';
+            ctx.fillText('Cu²⁺', 402, 176);
+
+            // Electron Transfer Arrow
+            if (redoksStage === 1) {
+                ctx.strokeStyle = '#facc15';
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.arc(300, 170, 100, Math.PI * 1.1, Math.PI * 1.9);
+                ctx.stroke();
+
+                // Electrons
+                ctx.fillStyle = '#facc15';
+                ctx.beginPath(); ctx.arc(280, 80, 8, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.arc(320, 80, 8, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = '#000';
+                ctx.font = 'bold 10px sans-serif';
+                ctx.fillText('e⁻', 276, 83); ctx.fillText('e⁻', 316, 83);
+            }
+        }
+
+        function triggerElectronTransfer() {
+            playSound('correct');
+            redoksStage = 1;
+            drawRedoks();
+            document.getElementById('redoks-micro-log').innerHTML = `
+                <div class="text-yellow-400">⚡ Oksidasi: Zn → Zn²⁺ + 2e⁻ (Biloks 0 → +2)</div>
+                <div class="text-cyan-300">⚡ Reduksi: Cu²⁺ + 2e⁻ → Cu (Biloks +2 → 0)</div>
+            `;
+        }
+
+        function resetRedoksSim() {
+            playSound('click');
+            redoksStage = 0;
+            drawRedoks();
+            document.getElementById('redoks-micro-log').innerHTML = `<div>Status: Menunggu pemicu transfer elektron...</div>`;
+        }
+
+        /* ==================== LKPD FORM LOGIC ==================== */
+        function saveLKPD(e) {
+            e.preventDefault();
+            playSound('correct');
+            state.lkpdSaved = true;
+            document.getElementById('lkpd-status-msg').classList.remove('hidden');
+            document.getElementById('report-status-lkpd').innerText = 'Lengkap (Tersimpan)';
+            document.getElementById('report-status-lkpd').className = 'text-sm font-bold text-emerald-400 pt-2';
+        }
+
+        /* ==================== EDUGAME ENGINE ==================== */
+        const gameQuestions = [
+            { q: "Berapakah Bilangan Oksidasi atom Mn dalam KMnO₄?", opts: ["+2", "+5", "+7", "+4"], ans: 2, cat: "Level 1: Biloks Speed Test" },
+            { q: "Spesi yang mengalami penangkapan elektron disebut...", opts: ["Oksidator", "Reduktor", "Hasil Oksidasi", "Anoda"], ans: 0, cat: "Level 2: Oksidator vs Reduktor" },
+            { q: "Diketahui E° Zn²⁺/Zn = -0.76 V dan E° Cu²⁺/Cu = +0.34 V. Potensial sel standar sel Volta tersebut adalah...", opts: ["+0.42 V", "+1.10 V", "-1.10 V", "+0.76 V"], ans: 1, cat: "Level 3: Volta Master" },
+            { q: "Pada sel elektrolisis larutan NaCl dengan elektroda inert Pt, gas apakah yang dihasilkan di Anoda?", opts: ["Gas Hidrogen (H₂)", "Gas Oksigen (O₂)", "Gas Klorin (Cl₂)", "Gas Nitrogen"], ans: 2, cat: "Level 4: Elektrolisis Challenge" },
+            { q: "Reaksi yang terjadi pada KATODA sel Volta adalah...", opts: ["Oksidasi", "Reduksi", "Pelepasan Elektron", "Pengikatan Oksigen"], ans: 1, cat: "Level 5: Konsep Elektroda" }
+        ];
+
+        function initGame() {
+            renderGameQuestion();
+        }
+
+        function renderGameQuestion() {
+            const current = gameQuestions[state.gameCurrentIdx];
+            document.getElementById('game-category-tag').innerText = current.cat;
+            document.getElementById('game-question-text').innerText = current.q;
+            document.getElementById('game-feedback').innerText = '';
+
+            const container = document.getElementById('game-options-container');
+            container.innerHTML = current.opts.map((opt, i) => `
+                <button onclick="checkGameAnswer(${i})" class="p-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs border border-slate-700 transition">
+                    ${opt}
+                </button>
+            `).join('');
+        }
+
+        function checkGameAnswer(optIdx) {
+            const current = gameQuestions[state.gameCurrentIdx];
+            const fb = document.getElementById('game-feedback');
+
+            if (optIdx === current.ans) {
+                playSound('correct');
+                state.gameScore += 20;
+                fb.className = "min-h-[30px] text-xs font-bold text-emerald-400 animate-bounce";
+                fb.innerText = "🎉 Jawaban Benar! +20 Poin";
+            } else {
+                playSound('wrong');
+                fb.className = "min-h-[30px] text-xs font-bold text-rose-400";
+                fb.innerText = "❌ Kurang Tepat! Terus Mencoba.";
+            }
+
+            document.getElementById('game-score-disp').innerText = state.gameScore;
+            document.getElementById('report-score-game').innerText = state.gameScore + " Pts";
+
+            setTimeout(() => {
+                state.gameCurrentIdx = (state.gameCurrentIdx + 1) % gameQuestions.length;
+                if (state.gameCurrentIdx === 0) state.gameLevel++;
+                document.getElementById('game-level-disp').innerText = state.gameLevel;
+                renderGameQuestion();
+            }, 1200);
+        }
+
+        /* ==================== EVALUASI QUESTION BANK & GRADING ==================== */
+        const evaluasiPG = [
+            { id: 1, q: "Dalam reaksi: 2 Al (s) + 3 Cl₂ (g) → 2 AlCl₃ (s), spesi yang bertindak sebagai reduktor adalah...", opts: ["Al", "Cl₂", "AlCl₃", "Cl⁻"], ans: 0, exp: "Al mengalami kenaikan biloks dari 0 menjadi +3 (Oksidasi), sehingga Al bertindak sebagai reduktor." },
+            { id: 2, q: "Bilangan oksidasi atom Klorin (Cl) dalam senyawa KClO₃ adalah...", opts: ["+1", "+3", "+5", "+7"], ans: 2, exp: "K (+1) + Cl + 3(-2) = 0 => +1 + Cl - 6 = 0 => Cl = +5." },
+            { id: 3, q: "Pernyataan yang BENAR mengenai sel Volta adalah...", opts: ["Mengubah energi listrik menjadi energi kimia", "Reaksi berlangsung tidak spontan", "Oksidasi terjadi di Anoda (Kutub Negatif)", "Elektron mengalir dari katoda ke anoda"], ans: 2, exp: "Sel Volta mengubah energi kimia menjadi listrik. Di anoda (negatif) terjadi reaksi oksidasi." },
+            { id: 4, q: "Diketahui data potensial reduksi: E° Mg²⁺/Mg = -2.37 V dan E° Ag⁺/Ag = +0.80 V. Potensial sel standar reaksi Mg + 2Ag⁺ → Mg²⁺ + 2Ag adalah...", opts: ["+1.57 V", "+3.17 V", "-1.57 V", "-3.17 V"], ans: 1, exp: "E°sel = E°katoda (Ag) - E°anoda (Mg) = +0.80 - (-2.37) = +3.17 V." },
+            { id: 5, q: "Pada elektrolisis larutan CuSO₄ dengan elektroda karbon (C), spesi yang terreduksi di Katoda adalah...", opts: ["Ion Cu²⁺", "Air (H₂O)", "Ion SO₄²⁻", "Elektroda Karbon"], ans: 0, exp: "Ion Cu²⁺ memiliki potensial reduksi lebih tinggi dari air, sehingga Cu²⁺ terreduksi di katoda." },
+            { id: 6, q: "Unsur Mn yang memiliki bilangan oksidasi tertinggi terdapat pada spesi...", opts: ["MnO₂", "MnSO₄", "KMnO₄", "K₂MnO₄"], ans: 2, exp: "Biloks Mn dalam KMnO₄ adalah +7 (tertinggi)." },
+            { id: 7, q: "Metode pencegahan korosi pipa besi bawah tanah dengan menghubungkannya pada logam Magnesium disebut...", opts: ["Elektroplating", "Galvanisasi", "Proteksi Katodik", "Anodizing"], ans: 2, exp: "Proteksi Katodik menggunakan logam pengorbanan seperti Mg untuk melindungi besi." },
+            { id: 8, q: "Jumlah muatan listrik sebesar 9650 Coulomb dialirkan ke dalam larutan AgNO₃. Mol elektron yang mengalir adalah...", opts: ["0.01 mol", "0.1 mol", "1.0 mol", "10 mol"], ans: 1, exp: "Mol elektron = Q / 96500 = 9650 / 96500 = 0.1 mol." },
+            { id: 9, q: "Fungsi utama Jembatan Garam pada sel Volta adalah...", opts: ["Menghasilkan arus listrik", "Menetralkan kelebihan muatan ion pada kedua larutan", "Mempercepat penguapan", "Sebagai tempat reaksi oksidasi"], ans: 1, exp: "Jembatan garam menetralkan kelebihan ion positif dan negatif pada masing-masing kompartemen sel." },
+            { id: 10, q: "Spesi yang merupakan oksidator terkuat di antara berikut adalah...", opts: ["F₂", "Cl₂", "Na", "Zn"], ans: 0, exp: "Gas Fluorin (F₂) memiliki potensial reduksi tertinggi sehingga merupakan pengoksidasi (oksidator) terkuat." },
+            { id: 11, q: "Dalam reaksi redoks: Cr₂O₇²⁻ + 14 H⁺ + 6 e⁻ → 2 Cr³⁺ + 7 H₂O, reaksi tersebut merupakan...", opts: ["Setengah reaksi oksidasi", "Setengah reaksi reduksi", "Reaksi autoredoks", "Reaksi penetralan"], ans: 1, exp: "Reaksi tersebut menangkap elektron (e⁻ di kiri) dan biloks Cr turun dari +6 ke +3 (Reduksi)." },
+            { id: 12, q: "Di antara elektrolit berikut, yang menghasilkan gas O₂ di anoda saat dielektrolisis dengan elektroda Pt adalah...", opts: ["Larutan NaCl", "Larutan KI", "Larutan Na₂SO₄", "Lelehan NaCl"], ans: 2, exp: "Anion SO₄²⁻ merupakan sisa asam oksi sehingga air yang teroksidasi di anoda menghasilkan O₂." },
+            { id: 13, q: "Zat yang mengalami autoredoks (disproporsionasi) adalah zat yang...", opts: ["Hanya mengalami oksidasi", "Hanya mengalami reduksi", "Mengalami oksidasi sekaligus reduksi", "Tidak mengalami perubahan biloks"], ans: 2, exp: "Disproporsionasi terjadi jika satu unsur mengalami reaksi oksidasi dan reduksi sekaligus." },
+            { id: 14, q: "Penyepuhan kunci besi dengan tembaga menggunakan elektrolit CuSO₄. Kunci besi dipasang pada...", opts: ["Anoda (Kutub Positif)", "Katoda (Kutub Negatif)", "Jembatan Garam", "Sumber Arus AC"], ans: 1, exp: "Benda yang disepuh dipasang di Katoda (-) agar ion logam Cu²⁺ mengendap di permukaannya." },
+            { id: 15, q: "Hukum Faraday I menyatakan bahwa massa zat terendap ($w$) berbanding lurus dengan...", opts: ["Volume larutan", "Jumlah muatan listrik ($Q = i \\cdot t$)", "Suhu ruangan", "Konsentrasi molar"], ans: 1, exp: "Sesuai rumus $w = (e \\cdot i \\cdot t) / 96500$, massa berbanding lurus dengan muatan listrik $i \\cdot t$." }
+        ];
+
+        const evaluasiEssay = [
+            { id: 1, q: "Setarakan reaksi redoks berikut dalam suasana ASAM: MnO₄⁻ + Fe²⁺ → Mn²⁺ + Fe³⁺ (Tuliskan langkah setengah reaksinya!)" },
+            { id: 2, q: "Jelaskan mengapa perahu nelayan di daerah Maluku Tengah lebih cepat mengalami korosi dibandingkan dengan pagar besi rumah di pegunungan!" },
+            { id: 3, q: "Suatu sel Volta terdiri dari elektroda Zn dalam larutan ZnSO₄ 1M dan elektroda Cu dalam larutan CuSO₄ 1M. Tuliskan reaksi anoda, katoda, dan sel resminya!" },
+            { id: 4, q: "Berapa gram logam Tembaga ($Cu, Ar = 63.5$) yang diendapkan pada katoda jika arus sebesar 5 Ampere dialirkan ke dalam larutan CuSO₄ selama 1930 detik?" },
+            { id: 5, q: "Jelaskan perbedaan mendasar antara Sel Volta dan Sel Elektrolisis dari segi perubahan energi, kespontanan reaksi, serta tanda kutub elektrodanya!" }
+        ];
+
+        function renderEvaluasiQuestions() {
+            // Render PG
+            const pgContainer = document.getElementById('pg-questions-container');
+            pgContainer.innerHTML = evaluasiPG.map((item, idx) => `
+                <div class="bg-navy-900 p-4 rounded-2xl border border-slate-800 space-y-3 text-xs">
+                    <div class="font-bold text-white text-sm">
+                        <span class="text-cyan-400 font-mono">${idx + 1}.</span> ${item.q}
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        ${item.opts.map((opt, oIdx) => `
+                            <label class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 cursor-pointer transition">
+                                <input type="radio" name="pg-${item.id}" value="${oIdx}" required class="accent-cyan-400">
+                                <span class="text-slate-300 font-medium">${String.fromCharCode(65 + oIdx)}. ${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                    <div id="pg-exp-${item.id}" class="hidden p-3 rounded-xl bg-cyan-950/60 border border-cyan-800 text-cyan-200 text-[11px]">
+                        <strong>Pembahasan:</strong> ${item.exp}
+                    </div>
+                </div>
+            `).join('');
+
+            // Render Essay
+            const essayContainer = document.getElementById('essay-questions-container');
+            essayContainer.innerHTML = evaluasiEssay.map((item, idx) => `
+                <div class="bg-navy-900 p-4 rounded-2xl border border-slate-800 space-y-2 text-xs">
+                    <div class="font-bold text-purple-300 text-sm">
+                        Soal Uraian ${idx + 1}: ${item.q}
+                    </div>
+                    <textarea id="essay-ans-${item.id}" required rows="3" placeholder="Tuliskan lembar jawaban uraian lengkapmu di sini..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-purple-400"></textarea>
+                </div>
+            `).join('');
+        }
+
+        function submitEvaluasi(e) {
+            e.preventDefault();
+            playSound('correct');
+
+            let correctCount = 0;
+            evaluasiPG.forEach(item => {
+                const selected = document.querySelector(`input[name="pg-${item.id}"]:checked`);
+                const expDiv = document.getElementById(`pg-exp-${item.id}`);
+                if (expDiv) expDiv.classList.remove('hidden');
+
+                if (selected && parseInt(selected.value) === item.ans) {
+                    correctCount++;
+                }
+            });
+
+            // Calculate score (Out of 100)
+            const score = Math.round((correctCount / evaluasiPG.length) * 100);
+            state.evalScore = score;
+
+            // Update Report Section
+            document.getElementById('report-score-pg').innerText = score;
+            const badge = document.getElementById('report-status-badge');
+            const feedback = document.getElementById('report-feedback-text');
+
+            if (score >= 75) {
+                badge.innerText = 'Tuntas (Sangat Baik)';
+                badge.className = 'inline-block px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold';
+                feedback.innerText = `Selamat ${state.student.nama}! Anda telah mencapai Kriteria Ketercapaian Tujuan Pembelajaran (KKTP) dengan nilai sangat memuaskan (${score}/100). Pemahaman konsep redoks dan sel elektrokimia Anda sangat matang.`;
+            } else {
+                badge.innerText = 'Perlu Remidial';
+                badge.className = 'inline-block px-2.5 py-0.5 rounded bg-rose-500/20 text-rose-300 text-[10px] font-bold';
+                feedback.innerText = `Halo ${state.student.nama}, nilai evaluasi Anda adalah ${score}/100. Disarankan untuk mengulang simulasi Laboratorium Virtual dan mempelajari kembali modul penyetaraan reaksi serta aturan sel elektrolisis.`;
+            }
+
+            alert(`Evaluasi Berhasil Dikirim!\nSkor Pilihan Ganda Anda: ${score} / 100 (${correctCount} Benar dari 15 Soal).\nLihat pembahasan soal di bawah setiap nomor.`);
+            navigateTo('hasil');
+        }
+
+        /* ==================== REFLEKSI FORM LOGIC ==================== */
+        function saveRefleksi(e) {
+            e.preventDefault();
+            playSound('correct');
+            state.refleksiSaved = true;
+            alert('Terima kasih! Journal refleksi diri Anda telah berhasil tersimpan.');
+            navigateTo('hasil');
+        }
+    </script>
+</body>
+</html>
